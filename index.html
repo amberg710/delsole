@@ -142,11 +142,9 @@ nav a:hover::after {
     border-radius: 15px;
     opacity: 0;
     transform: translateY(60px) scale(0.92);
-    transition: all 0.3s ease;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     cursor: pointer;
     will-change: transform, opacity;
-}
-    
 }
 
 .gallery-advanced img.show {
@@ -174,6 +172,30 @@ nav a:hover::after {
     }
 }
 
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#lightbox.show {
+    display: flex;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
 /* MAP */
 iframe {
     border-radius: 16px;
@@ -186,40 +208,23 @@ iframe {
     padding: 120px 20px;
 }
 
-/* CLEAN MINIMAL ICONS */
-
+/* FLOATING BUTTON */
 .floating-buttons {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     z-index: 9999;
 }
 
-/* ICON ONLY (NO WHITE BACKGROUND) */
 .float-icon {
     width: 55px;
     height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* IMAGE */
 .float-icon img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
 }
 
-/* SUBTLE HOVER (NO WHITE EFFECT) */
-.float-icon:hover {
-    transform: scale(1.1);
-}
-
-/* WHATSAPP PULSE ONLY */
 .whatsapp-icon {
     animation: pulse 2s infinite;
 }
@@ -230,48 +235,29 @@ iframe {
     100% { transform: scale(1); }
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    .section {
-        flex-direction: column;
-        text-align: center;
-    }
-    .section img, .text {
-        width: 100%;
-    }
-    .hero h1 {
-        font-size: 3rem;
-    }
-    .gallery-advanced {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* MOBILE BOOK BAR */
+.mobile-book {
+    display: none;
 }
 
-/* 🔥 REMOVE NAV ON PHONE */
 @media (max-width: 600px) {
-    nav {
-        display: none;
+    nav { display: none; }
+
+    .mobile-book {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #BFA06F;
+        text-align: center;
+        padding: 15px;
+        z-index: 9999;
     }
 
-    .hero {
-        height: 90vh;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .btn {
-        font-size: 14px;
-        padding: 12px 20px;
-    }
-
-    .section {
-        padding: 60px 20px;
-    }
-
-    .text h2 {
-        font-size: 1.8rem;
+    .mobile-book a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
     }
 }
 
@@ -291,12 +277,12 @@ iframe {
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>A peaceful retreat in Supetarska Draga where the sea and calm surroundings define your stay.</p>
+<p>A peaceful retreat in Supetarska Draga where the sea defines your stay.</p>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
 </div>
 </section>
 
-<section class="section" id="experience">
+<section class="section">
 <div class="text">
 <h2>Moments by the sea</h2>
 <p>Wake up to sea views and enjoy peaceful surroundings just steps from the beach.</p>
@@ -304,7 +290,7 @@ iframe {
 <img src="balconyview.png">
 </section>
 
-<section class="section alt" id="amenities">
+<section class="section alt">
 <img src="bedroom.png">
 <div class="text">
 <h2>Comfort and simplicity</h2>
@@ -319,64 +305,53 @@ iframe {
 <img src="kitchen.png">
 <img src="bedroom.png">
 <img src="balconyview.png">
-<img src="seaview.png">    
-
-
-
-
+<img src="seaview.png">
 </section>
 
-<section class="section alt" id="location">
+<section class="section alt">
 <div class="text">
 <h2>Location</h2>
-<p>Located in beautiful Supetarska Draga on Rab Island, surrounded by calm sea, hidden bays and stunning island views.</p>
+<p>Supetarska Draga, Rab Island</p>
 </div>
-
-<iframe 
-src="https://www.google.com/maps?q=44.8032,14.7067&hl=en&z=14&output=embed"
-width="100%" height="400" style="border:0;" loading="lazy">
-</iframe>
+<iframe src="https://www.google.com/maps?q=44.8032,14.7067&z=14&output=embed"></iframe>
 </section>
 
-<section class="contact" id="contact">
+<section class="contact">
 <h2>Book your stay</h2>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
 </section>
 
-
 <div class="floating-buttons">
-
-  <!-- BOOKING (CIRCLE ICON) -->
-
-
-  <a href="https://wa.me/385981676499"v=2" target="_blank" class="float-icon whatsapp-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-  </a>
-
+<a href="https://wa.me/385981676499?v=2&text=Hi%20I%20want%20to%20book%20Del%20Sole%20Apartment" target="_blank" class="float-icon whatsapp-icon">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+</a>
 </div>
 
-<!-- LIGHTBOX -->
+<div class="mobile-book">
+<a href="https://wa.me/385981676499?v=2&text=Hi%20I%20want%20to%20book%20Del%20Sole%20Apartment">
+Book via WhatsApp
+</a>
+</div>
+
 <div id="lightbox">
-<img src="" id="lightbox-img">
+<img id="lightbox-img">
 </div>
 
 <script>
-const galleryImages = document.querySelectorAll('.gallery-advanced img');
+const images = document.querySelectorAll('.gallery-advanced img');
 
 window.addEventListener('scroll', () => {
-  galleryImages.forEach((img, i) => {
-    const top = img.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50){
-        setTimeout(() => img.classList.add('show'), i * 180);
-    }
-  });
+    images.forEach((img, i) => {
+        if(img.getBoundingClientRect().top < window.innerHeight - 50){
+            setTimeout(() => img.classList.add('show'), i * 180);
+        }
+    });
 });
 
-/* LIGHTBOX */
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 
-galleryImages.forEach(img => {
+images.forEach(img => {
     img.onclick = () => {
         lightbox.classList.add("show");
         lightboxImg.src = img.src;
