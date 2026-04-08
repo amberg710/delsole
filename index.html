@@ -134,7 +134,6 @@ nav a:hover::after {
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     padding: 80px 10%;
-    scroll-behavior: smooth;
 }
 
 .gallery-advanced img {
@@ -142,11 +141,8 @@ nav a:hover::after {
     border-radius: 15px;
     opacity: 0;
     transform: translateY(60px) scale(0.92);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     cursor: pointer;
-    will-change: transform, opacity;
-}
-    
 }
 
 .gallery-advanced img.show {
@@ -186,8 +182,7 @@ iframe {
     padding: 120px 20px;
 }
 
-/* CLEAN MINIMAL ICONS */
-
+/* FLOATING BUTTONS */
 .floating-buttons {
     position: fixed;
     bottom: 20px;
@@ -198,28 +193,16 @@ iframe {
     z-index: 9999;
 }
 
-/* ICON ONLY (NO WHITE BACKGROUND) */
 .float-icon {
     width: 55px;
     height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* IMAGE */
 .float-icon img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
 }
 
-/* SUBTLE HOVER (NO WHITE EFFECT) */
-.float-icon:hover {
-    transform: scale(1.1);
-}
-
-/* WHATSAPP PULSE ONLY */
 .whatsapp-icon {
     animation: pulse 2s infinite;
 }
@@ -228,6 +211,30 @@ iframe {
     0% { transform: scale(1); }
     50% { transform: scale(1.12); }
     100% { transform: scale(1); }
+}
+
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#lightbox.show {
+    display:flex;
+}
+
+#lightbox img {
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
 }
 
 /* RESPONSIVE */
@@ -247,32 +254,14 @@ iframe {
     }
 }
 
-/* 🔥 REMOVE NAV ON PHONE */
+/* MOBILE */
 @media (max-width: 600px) {
-    nav {
-        display: none;
-    }
-
-    .hero {
-        height: 90vh;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .btn {
-        font-size: 14px;
-        padding: 12px 20px;
-    }
-
-    .section {
-        padding: 60px 20px;
-    }
-
-    .text h2 {
-        font-size: 1.8rem;
-    }
+    nav { display: none; }
+    .hero { height: 90vh; }
+    .hero h1 { font-size: 2.2rem; }
+    .btn { font-size: 14px; padding: 12px 20px; }
+    .section { padding: 60px 20px; }
+    .text h2 { font-size: 1.8rem; }
 }
 
 </style>
@@ -320,10 +309,6 @@ iframe {
 <img src="bedroom.png">
 <img src="balconyview.png">
 <img src="seaview.png">    
-
-
-
-
 </section>
 
 <section class="section alt" id="location">
@@ -343,31 +328,33 @@ width="100%" height="400" style="border:0;" loading="lazy">
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
 </section>
 
-
 <div class="floating-buttons">
-
-  <!-- BOOKING (CIRCLE ICON) -->
-
-
-  <a href="https://wa.me/385981676499"v=2" target="_blank" class="float-icon whatsapp-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-  </a>
-
+<a href="https://wa.me/385981676499?v=2" target="_blank" class="float-icon whatsapp-icon">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+</a>
 </div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox">
-<img src="" id="lightbox-img">
+<img id="lightbox-img">
 </div>
 
 <script>
 const galleryImages = document.querySelectorAll('.gallery-advanced img');
 
+/* SHOW ON LOAD */
+window.addEventListener('load', () => {
+  galleryImages.forEach((img, i) => {
+      setTimeout(() => img.classList.add('show'), i * 120);
+  });
+});
+
+/* SHOW ON SCROLL */
 window.addEventListener('scroll', () => {
   galleryImages.forEach((img, i) => {
     const top = img.getBoundingClientRect().top;
     if(top < window.innerHeight - 50){
-        setTimeout(() => img.classList.add('show'), i * 180);
+        setTimeout(() => img.classList.add('show'), i * 120);
     }
   });
 });
@@ -389,4 +376,4 @@ lightbox.onclick = () => {
 </script>
 
 </body>
-</html> include this in my code please
+</html>
