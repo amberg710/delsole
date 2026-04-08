@@ -36,7 +36,6 @@ nav a {
     color: #333;
     font-weight: 500;
     position: relative;
-    transition: 0.3s;
 }
 
 nav a::after {
@@ -92,16 +91,6 @@ nav a:hover::after {
     transform: translateY(-4px) scale(1.03);
 }
 
-.secondary {
-    border: 1px solid #333;
-    color: #333;
-}
-
-.secondary:hover {
-    background: #333;
-    color: white;
-}
-
 /* SECTION */
 .section {
     padding: 120px 10%;
@@ -135,16 +124,11 @@ nav a:hover::after {
     line-height: 1.8;
 }
 
-/* ALT */
 .alt {
     background: #f7f5f2;
 }
 
-/* =========================
-   🔥 GALLERY FIX ONLY
-   ========================= */
-
-/* DESKTOP GRID */
+/* GALLERY */
 .gallery-advanced {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -161,17 +145,16 @@ nav a:hover::after {
     cursor: pointer;
 }
 
-.gallery-advanced img:hover {
-    transform: scale(1.05);
-}
-
-/* ANIMATION */
 .gallery-advanced img.show {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
-/* MOBILE → SWIPE */
+.gallery-advanced img:hover {
+    transform: scale(1.05);
+}
+
+/* MOBILE SWIPE */
 @media (max-width: 600px) {
     .gallery-advanced {
         display: flex;
@@ -187,59 +170,89 @@ nav a:hover::after {
     }
 }
 
+/* MAP */
+iframe {
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
 /* CONTACT */
 .contact {
     text-align: center;
     padding: 120px 20px;
 }
 
-/* FLOAT BUTTONS */
+/* ===== FLOATING ICON BUTTONS ===== */
 .floating-buttons {
     position: fixed;
     bottom: 20px;
     right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    z-index: 999;
+
+    /* SLIDE IN */
+    transform: translateX(100px);
+    opacity: 0;
+    animation: slideIn 1s ease forwards;
+    animation-delay: 1s;
 }
 
-.float-btn {
-    padding: 12px 18px;
-    border-radius: 30px;
-    color: white;
-    text-decoration: none;
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-.booking { background: #BFA06F; }
-.whatsapp { background: #25D366; }
-
-/* LIGHTBOX */
-#lightbox {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,0.95);
-    top: 0;
-    left: 0;
+.float-icon {
     display: flex;
     align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
+    gap: 10px;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    border-radius: 50px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     transition: 0.4s;
 }
 
-#lightbox.show {
+.float-icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.float-icon .label {
+    opacity: 0;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #333;
+    transition: 0.3s;
+}
+
+.float-icon:hover {
+    width: 160px;
+}
+
+.float-icon:hover .label {
     opacity: 1;
-    pointer-events: auto;
 }
 
-#lightbox img {
-    max-width: 90%;
-    max-height: 80%;
+/* WHATSAPP PULSE */
+.whatsapp-icon {
+    animation: pulse 2s infinite;
 }
 
-/* RESPONSIVE (UNCHANGED) */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37,211,102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37,211,102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37,211,102, 0); }
+}
+
+/* RESPONSIVE */
 @media (max-width: 1024px) {
     .section {
         flex-direction: column;
@@ -254,44 +267,6 @@ nav a:hover::after {
     .gallery-advanced {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 600px) {
-    nav {
-        flex-wrap: wrap;
-        gap: 10px;
-        font-size: 14px;
-    }
-
-    .hero {
-        height: 90vh;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .btn {
-        font-size: 14px;
-        padding: 12px 20px;
-    }
-
-    .section {
-        padding: 60px 20px;
-    }
-
-    .text h2 {
-        font-size: 1.8rem;
-    }
-
-    iframe {
-        height: 250px;
-    }
-
-    
-iframe {
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
 }
 
 </style>
@@ -331,7 +306,6 @@ iframe {
 </div>
 </section>
 
-<!-- GALLERY (UNCHANGED HTML) -->
 <section class="gallery-advanced">
 <img src="balconyview.png">
 <img src="bedroom.png">
@@ -341,29 +315,37 @@ iframe {
 <img src="balcony.png">
 </section>
 
-
-
 <section class="section alt" id="location">
-  <div class="text">
-    <h2>Location</h2>
-    <p>Located in beautiful Supetarska Draga on Rab Island, surrounded by calm sea, hidden bays and stunning island views.</p>
-  </div>
+<div class="text">
+<h2>Location</h2>
+<p>Located in beautiful Supetarska Draga on Rab Island, surrounded by calm sea, hidden bays and stunning island views.</p>
+</div>
 
-  <iframe 
-    src="https://www.google.com/maps?q=44.8032,14.7067&hl=en&z=14&output=embed"
-    width="100%" 
-    height="400" 
-    style="border:0; border-radius:16px;"
-    allowfullscreen="" 
-    loading="lazy">
-  </iframe>
+<iframe 
+src="https://www.google.com/maps?q=44.8032,14.7067&hl=en&z=14&output=embed"
+width="100%" height="400" style="border:0;" loading="lazy">
+</iframe>
 </section>
 
-    
 <section class="contact" id="contact">
 <h2>Book your stay</h2>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
 </section>
+
+<!-- FLOATING BUTTONS -->
+<div class="floating-buttons">
+
+<a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank" class="float-icon">
+<img src="booking.png">
+<span class="label">Book Now</span>
+</a>
+
+<a href="https://wa.link/weiep6" target="_blank" class="float-icon whatsapp-icon">
+<img src="whatsapp.png">
+<span class="label">Chat</span>
+</a>
+
+</div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox">
@@ -371,8 +353,6 @@ iframe {
 </div>
 
 <script>
-
-/* ORIGINAL ANIMATION */
 const galleryImages = document.querySelectorAll('.gallery-advanced img');
 
 window.addEventListener('scroll', () => {
@@ -384,7 +364,7 @@ window.addEventListener('scroll', () => {
   });
 });
 
-/* LIGHTBOX (ADDED) */
+/* LIGHTBOX */
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 
@@ -398,7 +378,6 @@ galleryImages.forEach(img => {
 lightbox.onclick = () => {
     lightbox.classList.remove("show");
 };
-
 </script>
 
 </body>
