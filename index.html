@@ -14,6 +14,7 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
+    background: #fff;
     color: #222;
 }
 
@@ -21,20 +22,20 @@ body {
 nav {
     position: fixed;
     width: 100%;
-    padding: 15px 25px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
     z-index: 1000;
 }
 
-/* LOGO */
 .logo img {
     height: 40px;
 }
 
-/* LINKS */
+/* NAV LINKS */
 .nav-links {
     display: flex;
     gap: 30px;
@@ -45,7 +46,7 @@ nav a {
     color: #333;
 }
 
-/* 🔥 HAMBURGER ALWAYS VISIBLE */
+/* HAMBURGER */
 .menu-toggle {
     display: flex;
     flex-direction: column;
@@ -54,28 +55,52 @@ nav a {
 }
 
 .menu-toggle span {
-    width: 28px;
+    width: 26px;
     height: 3px;
     background: #333;
-    transition: 0.3s;
 }
 
 /* HERO */
 .hero {
     height: 100vh;
-    background: url('image1C.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+    url('image1C.png') center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.primary {
+    background: #BFA06F;
+    color: white;
+}
+
+.secondary {
+    border: 1px solid #333;
+    color: #333;
 }
 
 /* SECTION */
 .section {
-    padding: 100px 10%;
+    padding: 120px 10%;
     display: flex;
-    gap: 40px;
+    gap: 60px;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -89,18 +114,49 @@ nav a {
     width: 45%;
 }
 
+/* ALT */
+.alt {
+    background: #f7f5f2;
+}
+
 /* GALLERY */
 .gallery-advanced {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding: 40px;
+    column-count: 3;
+    column-gap: 15px;
+    padding: 80px 10%;
 }
 
 .gallery-advanced img {
-    width: 80%;
+    width: 100%;
+    margin-bottom: 15px;
     border-radius: 15px;
+    cursor: pointer;
+    transition: 0.4s;
 }
+
+.gallery-advanced img:hover {
+    transform: scale(1.05);
+}
+
+/* FLOATING BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.float-btn {
+    padding: 12px 18px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
 
 /* LIGHTBOX */
 #lightbox {
@@ -111,8 +167,8 @@ nav a {
     top: 0;
     left: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     opacity: 0;
     pointer-events: none;
 }
@@ -125,10 +181,9 @@ nav a {
 /* MOBILE */
 @media (max-width: 768px) {
 
-    /* hide desktop menu */
     .nav-links {
         position: fixed;
-        top: 60px;
+        top: 70px;
         right: -100%;
         flex-direction: column;
         background: white;
@@ -143,12 +198,18 @@ nav a {
 
     .section {
         flex-direction: column;
+        text-align: center;
     }
 
     .section img,
     .text {
         width: 100%;
     }
+
+    .gallery-advanced {
+        column-count: 1;
+    }
+
 }
 
 </style>
@@ -182,23 +243,34 @@ nav a {
 <div>
 <h1>Del Sole Apartments</h1>
 <p>Relax by the sea in Supetarska Draga</p>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Check Availability
+</a>
 </div>
 </section>
 
 <section class="section" id="experience">
 <div class="text">
 <h2>Moments by the sea</h2>
-<p>Wake up to peaceful surroundings just steps from the beach.</p>
+<p>Wake up to the sound of the sea and enjoy peaceful surroundings.</p>
 </div>
 <img src="balconyview.png">
 </section>
 
-<section class="section" id="amenities">
+<section class="section alt">
 <img src="bedroom.png">
 <div class="text">
 <h2>Comfort and simplicity</h2>
-<p>Fully equipped apartments with balcony, AC and sea view.</p>
+<p>Fully equipped apartments with AC, balcony and sea view.</p>
 </div>
+</section>
+
+<section class="section" id="amenities">
+<div class="text">
+<h2>Perfect location</h2>
+<p>Sandy beach 2 minutes away, restaurants nearby and Rab town close.</p>
+</div>
+<img src="seaview.png">
 </section>
 
 <section class="gallery-advanced">
@@ -221,8 +293,25 @@ width="100%" height="350" style="border-radius:15px;border:none;">
 </section>
 
 <section id="contact" style="text-align:center;padding:80px;">
-<a href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
+<h2>Plan your stay</h2>
+
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Book on Booking
+</a>
+
+<br><br>
+
+<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
+Contact via WhatsApp
+</a>
+
+<p>delsolerab@gmail.com</p>
 </section>
+
+<div class="floating-buttons">
+<a href="https://www.booking.com/hotel/hr/apartments-rakip.html" class="float-btn booking">Book</a>
+<a href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" class="float-btn whatsapp">WhatsApp</a>
+</div>
 
 <div id="lightbox">
 <img id="lightbox-img">
@@ -230,13 +319,10 @@ width="100%" height="350" style="border-radius:15px;border:none;">
 
 <script>
 
-/* 🔥 MENU FIX */
-const toggle = document.getElementById("menuToggle");
-const nav = document.getElementById("navLinks");
-
-toggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
-});
+/* MENU */
+document.getElementById("menuToggle").onclick = function() {
+    document.getElementById("navLinks").classList.toggle("active");
+};
 
 /* LIGHTBOX */
 const imgs = document.querySelectorAll('.gallery-advanced img');
