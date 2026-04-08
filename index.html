@@ -16,7 +16,6 @@ body {
     font-family: 'Inter', sans-serif;
     background: #ffffff;
     color: #222;
-    overflow-x: hidden;
 }
 
 /* NAV */
@@ -27,8 +26,8 @@ nav {
     display: flex;
     justify-content: center;
     gap: 40px;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
     z-index: 1000;
 }
 
@@ -36,22 +35,6 @@ nav a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    position: relative;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    background: #BFA06F;
-    bottom: -5px;
-    left: 0;
-    transition: 0.3s;
-}
-
-nav a:hover::after {
-    width: 100%;
 }
 
 /* HERO */
@@ -69,22 +52,20 @@ nav a:hover::after {
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 4.5rem;
-    animation: fadeIn 2s ease;
 }
 
 .hero p {
-    margin-top: 10px;
-    animation: fadeIn 3s ease;
+    max-width: 500px;
+    margin: auto;
 }
 
 /* BUTTON */
 .btn {
-    display: inline-block;
-    padding: 14px 30px;
+    padding: 14px 28px;
     border-radius: 30px;
     text-decoration: none;
-    margin-top: 25px;
-    transition: 0.4s;
+    display: inline-block;
+    margin-top: 20px;
 }
 
 .primary {
@@ -92,66 +73,55 @@ nav a:hover::after {
     color: white;
 }
 
-.primary:hover {
-    background: #a88d5c;
-    transform: translateY(-3px);
-}
-
 .secondary {
     border: 1px solid #333;
     color: #333;
 }
 
-.secondary:hover {
-    background: #333;
-    color: white;
-}
-
 /* SECTION */
 .section {
-    padding: 140px 10%;
+    padding: 120px 10%;
     display: flex;
+    gap: 60px;
     align-items: center;
-    gap: 80px;
-    opacity: 0;
-    transform: translateY(60px);
-    transition: 1s;
-}
-
-.section.show {
-    opacity: 1;
-    transform: translateY(0);
+    flex-wrap: wrap;
 }
 
 .section img {
-    width: 50%;
-    border-radius: 20px;
-    transform: scale(0.95);
-    transition: 1s;
+    width: 45%;
+    border-radius: 16px;
 }
 
-.section.show img {
-    transform: scale(1);
-}
-
-/* TEXT */
 .text {
-    width: 50%;
+    width: 45%;
 }
 
 .text h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
+    font-size: 2.5rem;
 }
 
 .text p {
-    line-height: 1.8;
     color: #555;
+    line-height: 1.7;
 }
 
-/* ALT BG */
+/* ALT */
 .alt {
-    background: #f6f3ee;
+    background: #f7f5f2;
+}
+
+/* GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 15px;
+    padding: 80px 10%;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 15px;
 }
 
 /* CONTACT */
@@ -160,10 +130,30 @@ nav a:hover::after {
     padding: 120px 20px;
 }
 
-/* ANIMATIONS */
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(20px);}
-    to {opacity:1; transform: translateY(0);}
+/* FLOAT BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.float-btn {
+    padding: 12px 18px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.booking {
+    background: #BFA06F;
+}
+
+.whatsapp {
+    background: #25D366;
 }
 
 </style>
@@ -171,10 +161,12 @@ nav a:hover::after {
 
 <body>
 
+<!-- NAV -->
 <nav>
 <a href="#home">Home</a>
 <a href="#experience">Experience</a>
-<a href="#apartments">Apartments</a>
+<a href="#amenities">Amenities</a>
+<a href="#location">Location</a>
 <a href="#contact">Book</a>
 </nav>
 
@@ -182,7 +174,7 @@ nav a:hover::after {
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>Sea. Silence. Mediterranean comfort.</p>
+<p>Sea views. Calm mornings. Mediterranean living.</p>
 
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
 Check Availability
@@ -193,42 +185,85 @@ Check Availability
 <!-- EXPERIENCE -->
 <section class="section" id="experience">
 <div class="text">
-<h2>Everything within reach</h2>
+<h2>Relax by the sea</h2>
 <p>
-Just 2 minutes from sandy beaches and less than 1 minute to restaurants with fresh seafood and BBQ.
-A peaceful location with everything close by.
+Enjoy a peaceful stay just minutes from the beach.  
+Wake up to sea views, fresh air and quiet surroundings.
 </p>
 </div>
 <img src="balconyview.png">
 </section>
 
 <!-- APARTMENTS -->
-<section class="section alt" id="apartments">
+<section class="section alt">
 <img src="bedroom.png">
 <div class="text">
 <h2>Comfort & simplicity</h2>
 <p>
-Air-conditioned apartments with private balconies, sea views, free WiFi and parking.
-Perfect for families and couples.
+Air-conditioned apartments with balconies, kitchens and private bathrooms.  
+Perfect for families, couples and relaxing holidays.
 </p>
 </div>
 </section>
 
-<!-- LOCATION -->
-<section class="section">
+<!-- AMENITIES -->
+<section class="section" id="amenities">
 <div class="text">
-<h2>Explore Rab</h2>
+<h2>Everything you need</h2>
+
 <p>
-Close to Rab old town and just a short drive from Paradise Beach in Lopar.
-Enjoy the island lifestyle with nature and sea all around you.
+✔ Air conditioning ❄️<br>
+✔ Sandy beach 2 minutes walk 🌊<br>
+✔ Restaurant 1 minute away 🍽️<br>
+✔ BBQ & seafood nearby 🔥<br>
+✔ Free parking & WiFi 🚗<br>
+✔ Close to Rab Old Town 🏝️<br>
+✔ Near Paradise Beach (Lopar)
 </p>
+
 </div>
 <img src="seaview.png">
 </section>
 
+<!-- GALLERY -->
+<section class="gallery">
+<img src="balconyview.png">
+<img src="bedroom.png">
+<img src="kitchen.png">
+<img src="seaview.png">
+<img src="parkingnight.png">
+</section>
+
+<!-- LOCATION -->
+<section id="location" style="padding:100px 10%; text-align:center;">
+
+<h2 style="font-family:'Cormorant Garamond', serif;">Location</h2>
+
+<p>
+Supetarska Draga 287, Rab Island  
+2 min walk to beach • 1 min restaurant
+</p>
+
+<br>
+
+<iframe 
+src="https://maps.google.com/maps?q=Supetarska%20Draga%20287&t=k&z=15&ie=UTF8&iwloc=&output=embed"
+width="100%" height="350" style="border-radius:20px;border:none;">
+</iframe>
+
+<br><br>
+
+<a class="btn secondary" 
+href="https://www.google.com/maps/dir/?api=1&destination=Supetarska+Draga+287" 
+target="_blank">
+Get Directions
+</a>
+
+</section>
+
 <!-- CONTACT -->
 <section class="contact" id="contact">
-<h2 style="font-family:'Cormorant Garamond', serif;">Plan your stay</h2>
+<h2 style="font-family:'Cormorant Garamond', serif;">Book your stay</h2>
 
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
 Book on Booking.com
@@ -237,23 +272,18 @@ Book on Booking.com
 <br><br>
 
 <a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
-WhatsApp Contact
+WhatsApp
 </a>
+
+<p style="margin-top:20px;">delsolerab@gmail.com</p>
 
 </section>
 
-<script>
-const sections = document.querySelectorAll('.section');
-
-window.addEventListener('scroll', () => {
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-      sec.classList.add('show');
-    }
-  });
-});
-</script>
+<!-- FLOAT BUTTONS -->
+<div class="floating-buttons">
+<a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank" class="float-btn booking">Book</a>
+<a href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank" class="float-btn whatsapp">WhatsApp</a>
+</div>
 
 </body>
 </html>
