@@ -4,123 +4,138 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Del Sole Apartments Rab Croatia</title>
+<title>Del Sole Apartments</title>
 
-<meta name="description" content="Del Sole Apartments in Supetarska Draga Rab. Sea view, peaceful stay, contact booking via WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #111;
+    color: white;
+    overflow-x: hidden;
+}
 
+/* HERO */
+.hero {
+    height: 100vh;
+    background: url('image1C.png') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* SCROLL SECTION */
+.section {
+    padding: 120px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.section img {
+    width: 50%;
+    border-radius: 20px;
+}
+
+.text {
+    width: 50%;
+}
+
+.text h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.text p {
+    color: #ccc;
+}
+
+/* FULL IMAGE */
+.full {
+    height: 100vh;
+    background: url('seaview.png') center/cover;
+}
+
+/* BUTTON */
+.btn {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 12px 25px;
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: white;
+    color: black;
+}
+
+/* CONTACT */
+.contact {
+    text-align: center;
+    padding: 100px 20px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav>
-<a href="#home">Home</a>
-<a href="#apartments">Apartments</a>
-<a href="#gallery">Gallery</a>
-<a href="#pricing">Pricing</a>
-<a href="#contact">Contact</a>
-
-  <select onchange="changeLang(this.value)">
-<option value="en">EN</option>
-<option value="hr">HR</option>
-<option value="de">DE</option>
-</select>
-</nav>
-
 <!-- HERO -->
-<section class="hero" id="home">
-<div>
-<h1>Del Sole Apartments</h1>
-<p>Supetarska Draga • Rab • Croatia</p>
-
-<a class="btn" href="#contact">Book Now</a>
-</div>
-</section>
-
-<!-- APARTMENTS -->
-<section id="apartments">
-<h2>Apartments</h2>
-
-<div class="card">
-<h3>Sea View Apartment</h3>
-<p>Modern, bright apartment with balcony and stunning sea view.</p>
+<div class="hero">
+<h1>Del Sole</h1>
 </div>
 
-<div class="card">
-<h3>Family Apartment</h3>
-<p>Spacious and comfortable for families and longer stays.</p>
+<!-- STORY 1 -->
+<div class="section">
+<div class="text">
+<h2>Wake up to the sea</h2>
+<p>Experience calm mornings and peaceful sunsets in Supetarska Draga.</p>
 </div>
-
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-<h2>Gallery</h2>
-
-<div class="gallery">
 <img src="bedroom.png">
-<img src="kitchen.png">
-<img src="kitchen2.png">
-<img src="balcony.png">
+</div>
+
+<!-- STORY 2 -->
+<div class="section">
 <img src="balconyview.png">
-<img src="balconyview2.png">
-<img src="seaview.png">
-<img src="seaviewparking.png">
-<img src="parkingday.png">
-<img src="parkingnight.png">
-<img src="Screenshot (252).png">
+<div class="text">
+<h2>Your private view</h2>
+<p>Enjoy your coffee overlooking the Adriatic Sea.</p>
+</div>
 </div>
 
-</section>
+<!-- FULL IMAGE BREAK -->
+<div class="full"></div>
 
-<!-- PRICING -->
-<section id="pricing">
-<h2>Pricing</h2>
-
-<div class="card">
-<p>€70 – €140 per night depending on season</p>
-<p>Contact us for best price</p>
+<!-- STORY 3 -->
+<div class="section">
+<div class="text">
+<h2>Modern comfort</h2>
+<p>Fully equipped kitchen and stylish interiors.</p>
 </div>
-
-</section>
-
-<!-- MAP -->
-<section>
-<h2>Location</h2>
-
-<iframe 
-src="https://maps.google.com/maps?q=Supetarska%20Draga%20287&t=&z=13&ie=UTF8&iwloc=&output=embed"
-width="100%" height="300" style="border:0;border-radius:15px;">
-</iframe>
-
-</section>
+<img src="kitchen.png">
+</div>
 
 <!-- CONTACT -->
-<section id="contact">
-<h2>Book Your Stay</h2>
+<div class="contact">
+<h2>Book your stay</h2>
 
-<a class="btn whatsapp-btn" href="https://api.whatsapp.com/send?text=Hello%20I%20am%20interested%20in%20Del%20Sole%20Apartments%20on%20Rab" target="_blank">
-📱 Book via WhatsApp
+<a class="btn" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
+Book via WhatsApp
 </a>
 
-<p>delsolerab@gmail.com</p>
-
-</section>
-
-<!-- INSTAGRAM -->
-<section style="text-align:center;">
-<h2>Follow Us</h2>
-
-<a class="btn" href="https://www.instagram.com/delsolerab?utm_source=qr&igsh=ZmVhOGJmczltaTdi" target="_blank">
-📸 Instagram
-</a>
-
-</section>
-
-<script src="script.js"></script>
+</div>
 
 </body>
 </html>
