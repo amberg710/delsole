@@ -54,11 +54,6 @@ nav a {
     font-size: 4.5rem;
 }
 
-.hero p {
-    max-width: 500px;
-    margin: auto;
-}
-
 /* BUTTON */
 .btn {
     padding: 14px 28px;
@@ -90,6 +85,11 @@ nav a {
 .section img {
     width: 45%;
     border-radius: 16px;
+    transition: 0.5s;
+}
+
+.section img:hover {
+    transform: scale(1.04);
 }
 
 .text {
@@ -111,17 +111,30 @@ nav a {
     background: #f7f5f2;
 }
 
-/* GALLERY */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 15px;
+/* ADVANCED GALLERY */
+.gallery-advanced {
+    column-count: 3;
+    column-gap: 15px;
     padding: 80px 10%;
 }
 
-.gallery img {
+.gallery-advanced img {
     width: 100%;
+    margin-bottom: 15px;
     border-radius: 15px;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.8s ease;
+    cursor: pointer;
+}
+
+.gallery-advanced img.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.gallery-advanced img:hover {
+    transform: scale(1.03);
 }
 
 /* CONTACT */
@@ -138,6 +151,7 @@ nav a {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    z-index: 999;
 }
 
 .float-btn {
@@ -145,15 +159,52 @@ nav a {
     border-radius: 30px;
     color: white;
     text-decoration: none;
-    font-size: 14px;
 }
 
-.booking {
-    background: #BFA06F;
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
+
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+    z-index: 9999;
 }
 
-.whatsapp {
-    background: #25D366;
+#lightbox.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    transform: scale(0.9);
+    transition: 0.4s;
+}
+
+#lightbox.show img {
+    transform: scale(1);
+}
+
+#close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
 }
 
 </style>
@@ -174,11 +225,7 @@ nav a {
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>Sea views. Calm mornings. Mediterranean living.</p>
-
-<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
-Check Availability
-</a>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
 </div>
 </section>
 
@@ -186,10 +233,7 @@ Check Availability
 <section class="section" id="experience">
 <div class="text">
 <h2>Relax by the sea</h2>
-<p>
-Enjoy a peaceful stay just minutes from the beach.  
-Wake up to sea views, fresh air and quiet surroundings.
-</p>
+<p>2 minutes to sandy beach. Restaurants just steps away. Mediterranean calm and comfort.</p>
 </div>
 <img src="balconyview.png">
 </section>
@@ -199,10 +243,7 @@ Wake up to sea views, fresh air and quiet surroundings.
 <img src="bedroom.png">
 <div class="text">
 <h2>Comfort & simplicity</h2>
-<p>
-Air-conditioned apartments with balconies, kitchens and private bathrooms.  
-Perfect for families, couples and relaxing holidays.
-</p>
+<p>Air-conditioned apartments with balconies, sea views, WiFi and parking.</p>
 </div>
 </section>
 
@@ -210,41 +251,32 @@ Perfect for families, couples and relaxing holidays.
 <section class="section" id="amenities">
 <div class="text">
 <h2>Everything you need</h2>
-
 <p>
 ✔ Air conditioning ❄️<br>
-✔ Sandy beach 2 minutes walk 🌊<br>
-✔ Restaurant 1 minute away 🍽️<br>
-✔ BBQ & seafood nearby 🔥<br>
+✔ Sandy beach 2 min 🌊<br>
+✔ Restaurant 1 min 🍽️<br>
+✔ BBQ & seafood 🔥<br>
 ✔ Free parking & WiFi 🚗<br>
-✔ Close to Rab Old Town 🏝️<br>
-✔ Near Paradise Beach (Lopar)
+✔ Near old town 🏝️<br>
+✔ Near Paradise Beach
 </p>
-
 </div>
 <img src="seaview.png">
 </section>
 
 <!-- GALLERY -->
-<section class="gallery">
+<section class="gallery-advanced">
 <img src="balconyview.png">
 <img src="bedroom.png">
 <img src="kitchen.png">
 <img src="seaview.png">
 <img src="parkingnight.png">
+<img src="balcony.png">
 </section>
 
 <!-- LOCATION -->
 <section id="location" style="padding:100px 10%; text-align:center;">
-
 <h2 style="font-family:'Cormorant Garamond', serif;">Location</h2>
-
-<p>
-Supetarska Draga 287, Rab Island  
-2 min walk to beach • 1 min restaurant
-</p>
-
-<br>
 
 <iframe 
 src="https://maps.google.com/maps?q=Supetarska%20Draga%20287&t=k&z=15&ie=UTF8&iwloc=&output=embed"
@@ -255,28 +287,20 @@ width="100%" height="350" style="border-radius:20px;border:none;">
 
 <a class="btn secondary" 
 href="https://www.google.com/maps/dir/?api=1&destination=Supetarska+Draga+287" 
-target="_blank">
-Get Directions
-</a>
-
+target="_blank">Get Directions</a>
 </section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
 <h2 style="font-family:'Cormorant Garamond', serif;">Book your stay</h2>
 
-<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
-Book on Booking.com
-</a>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Book on Booking</a>
 
 <br><br>
 
-<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
-WhatsApp
-</a>
+<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">WhatsApp</a>
 
-<p style="margin-top:20px;">delsolerab@gmail.com</p>
-
+<p>delsolerab@gmail.com</p>
 </section>
 
 <!-- FLOAT BUTTONS -->
@@ -284,6 +308,43 @@ WhatsApp
 <a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank" class="float-btn booking">Book</a>
 <a href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank" class="float-btn whatsapp">WhatsApp</a>
 </div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+<span id="close">&times;</span>
+<img id="lightbox-img">
+</div>
+
+<script>
+const galleryImages = document.querySelectorAll('.gallery-advanced img');
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.getElementById("close");
+
+window.addEventListener('scroll', () => {
+  galleryImages.forEach((img, i) => {
+    const top = img.getBoundingClientRect().top;
+    if(top < window.innerHeight - 50){
+        setTimeout(() => img.classList.add('show'), i * 100);
+    }
+  });
+});
+
+galleryImages.forEach(img => {
+    img.addEventListener("click", () => {
+        lightbox.classList.add("show");
+        lightboxImg.src = img.src;
+    });
+});
+
+closeBtn.onclick = () => lightbox.classList.remove("show");
+
+lightbox.onclick = (e) => {
+    if(e.target !== lightboxImg){
+        lightbox.classList.remove("show");
+    }
+};
+</script>
 
 </body>
 </html>
