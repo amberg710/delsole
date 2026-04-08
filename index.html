@@ -25,6 +25,7 @@ nav {
     padding: 20px;
     display: flex;
     justify-content: center;
+    gap: 40px;
     background: rgba(255,255,255,0.85);
     backdrop-filter: blur(10px);
     z-index: 1000;
@@ -39,7 +40,7 @@ nav {
 }
 
 .flags img {
-    width: 24px;
+    width: 22px;
     cursor: pointer;
     opacity: 0.7;
     transition: 0.3s;
@@ -48,6 +49,12 @@ nav {
 .flags img:hover {
     opacity: 1;
     transform: scale(1.1);
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
 }
 
 /* HERO */
@@ -74,6 +81,9 @@ nav {
     text-decoration: none;
     display: inline-block;
     margin-top: 25px;
+}
+
+.primary {
     background: #BFA06F;
     color: white;
 }
@@ -108,12 +118,32 @@ nav {
     border-radius: 15px;
     opacity: 0;
     transform: translateY(60px) scale(0.92);
-    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+    cursor: pointer;
 }
 
 .gallery-advanced img.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox.show {
+    display: flex;
+}
+
+#lightbox img {
+    max-width: 90%;
 }
 
 /* WHATSAPP */
@@ -125,14 +155,13 @@ nav {
 
 .float-icon {
     width: 48px;
-    opacity: 0.85;
 }
 
 /* MOBILE */
-@media (max-width: 600px) {
-    nav { display: none; }
-    .section { flex-direction: column; }
-    .section img, .text { width: 100%; }
+@media (max-width:600px){
+    nav { display:none; }
+    .section { flex-direction:column; }
+    .section img,.text { width:100%; }
 }
 
 </style>
@@ -141,6 +170,12 @@ nav {
 <body>
 
 <nav>
+<a href="#home">Home</a>
+<a href="#experience">Experience</a>
+<a href="#amenities">Amenities</a>
+<a href="#location">Location</a>
+<a href="#contact">Book</a>
+
 <div class="flags">
 <img src="https://flagcdn.com/w20/gb.png" onclick="changeLang('en')">
 <img src="https://flagcdn.com/w20/it.png" onclick="changeLang('it')">
@@ -151,72 +186,121 @@ nav {
 </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="home">
 <div>
 <h1 id="title">Del Sole Apartments</h1>
-<p id="subtitle">A peaceful retreat by the sea.</p>
-<a class="btn" id="btnBook" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
+<p id="subtitle">A peaceful retreat in Supetarska Draga where the sea defines your stay.</p>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Check Availability</a>
 </div>
 </section>
 
-<section class="section">
+<section class="section" id="experience">
 <div class="text">
 <h2 id="expTitle">Moments by the sea</h2>
-<p id="expText">Wake up to sea views.</p>
+<p id="expText">Wake up to sea views and enjoy peaceful surroundings.</p>
 </div>
 <img src="balconyview.png">
+</section>
+
+<section class="section alt" id="amenities">
+<img src="bedroom.png">
+<div class="text">
+<h2 id="amenTitle">Comfort and simplicity</h2>
+<p id="amenText">Fully equipped apartments with air conditioning.</p>
+</div>
 </section>
 
 <section class="gallery-advanced">
 <img src="balcony.png">
 <img src="parking2.png">
+<img src="parkingnight.png">
 <img src="kitchen.png">
+<img src="bedroom.png">
+<img src="balconyview.png">
+<img src="seaview.png">
+</section>
+
+<section class="section alt" id="location">
+<div class="text">
+<h2 id="locTitle">Location</h2>
+<p id="locText">Supetarska Draga, Rab Island</p>
+</div>
+<iframe src="https://www.google.com/maps?q=44.8032,14.7067&z=14&output=embed"></iframe>
+</section>
+
+<section class="contact" id="contact">
+<h2>Book your stay</h2>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
 </section>
 
 <div class="floating-buttons">
-<a href="https://wa.me/385981676499?v=2&text=Hi%20I%20want%20to%20book" target="_blank">
+<a id="waLink" target="_blank">
 <img class="float-icon" src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 </a>
 </div>
 
+<div id="lightbox">
+<img id="lightbox-img">
+</div>
+
 <script>
 
-/* SCROLL ANIMATION */
-const imgs = document.querySelectorAll('.gallery-advanced img');
+/* GALLERY */
+const images = document.querySelectorAll('.gallery-advanced img');
+
 window.addEventListener('scroll', () => {
- imgs.forEach((img,i)=>{
-  if(img.getBoundingClientRect().top < window.innerHeight - 50){
-    setTimeout(()=>img.classList.add('show'), i*150);
-  }
- });
+    images.forEach((img, i) => {
+        if(img.getBoundingClientRect().top < window.innerHeight - 50){
+            setTimeout(() => img.classList.add('show'), i * 180);
+        }
+    });
 });
 
-/* TRANSLATIONS */
-const translations = {
- en:{title:"Del Sole Apartments",subtitle:"A peaceful retreat by the sea.",btn:"Check Availability",expTitle:"Moments by the sea",expText:"Wake up to sea views."},
- it:{title:"Appartamenti Del Sole",subtitle:"Un rifugio tranquillo sul mare.",btn:"Verifica disponibilità",expTitle:"Momenti sul mare",expText:"Svegliati con vista mare."},
- de:{title:"Del Sole Apartments",subtitle:"Ein ruhiger Rückzugsort am Meer.",btn:"Verfügbarkeit prüfen",expTitle:"Momente am Meer",expText:"Aufwachen mit Meerblick."},
- hu:{title:"Del Sole Apartmanok",subtitle:"Nyugodt pihenés a tenger mellett.",btn:"Elérhetőség",expTitle:"Pillanatok a tengernél",expText:"Ébredj tengerre néző kilátással."},
- sk:{title:"Del Sole Apartmány",subtitle:"Pokojné miesto pri mori.",btn:"Dostupnosť",expTitle:"Momenty pri mori",expText:"Zobuď sa s výhľadom na more."},
- hr:{title:"Del Sole Apartmani",subtitle:"Miran odmor uz more.",btn:"Provjeri dostupnost",expTitle:"Trenuci uz more",expText:"Probudite se uz pogled na more."}
+/* LIGHTBOX */
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+
+images.forEach(img => {
+    img.onclick = () => {
+        lightbox.classList.add("show");
+        lightboxImg.src = img.src;
+    };
+});
+
+lightbox.onclick = () => {
+    lightbox.classList.remove("show");
 };
 
+/* LANG + WHATSAPP */
+const translations = {
+ en:{title:"Del Sole Apartments",subtitle:"A peaceful retreat by the sea.",expTitle:"Moments by the sea",expText:"Wake up to sea views.",amenTitle:"Comfort and simplicity",amenText:"Fully equipped apartments.",locTitle:"Location",locText:"Supetarska Draga, Rab Island",wa:"Hi, I want to book Del Sole Apartment."},
+ it:{title:"Appartamenti Del Sole",subtitle:"Un rifugio tranquillo sul mare.",expTitle:"Momenti sul mare",expText:"Svegliati con vista mare.",amenTitle:"Comfort e semplicità",amenText:"Appartamenti attrezzati.",locTitle:"Posizione",locText:"Supetarska Draga, Rab.",wa:"Ciao, vorrei prenotare."},
+ de:{title:"Del Sole Apartments",subtitle:"Ein ruhiger Rückzugsort am Meer.",expTitle:"Momente am Meer",expText:"Aufwachen mit Meerblick.",amenTitle:"Komfort",amenText:"Voll ausgestattete Apartments.",locTitle:"Lage",locText:"Rab Insel.",wa:"Hallo, ich möchte buchen."},
+ hu:{title:"Del Sole Apartmanok",subtitle:"Nyugodt pihenés a tenger mellett.",expTitle:"Pillanatok",expText:"Kilátás a tengerre.",amenTitle:"Kényelem",amenText:"Teljesen felszerelt.",locTitle:"Helyszín",locText:"Rab sziget.",wa:"Szia, foglalni szeretnék."},
+ sk:{title:"Del Sole Apartmány",subtitle:"Pokojné miesto pri mori.",expTitle:"Momenty",expText:"Výhľad na more.",amenTitle:"Komfort",amenText:"Plne vybavené.",locTitle:"Poloha",locText:"Rab ostrov.",wa:"Dobrý deň, rezervácia."},
+ hr:{title:"Del Sole Apartmani",subtitle:"Miran odmor uz more.",expTitle:"Trenuci",expText:"Pogled na more.",amenTitle:"Udobnost",amenText:"Potpuno opremljeni.",locTitle:"Lokacija",locText:"Otok Rab.",wa:"Pozdrav, želim rezervirati."}
+};
+
+let currentLang="en";
+
+function updateWhatsApp(){
+ const msg=encodeURIComponent(translations[currentLang].wa);
+ document.getElementById("waLink").href=`https://wa.me/385981676499?v=2&text=${msg}`;
+}
+
 function changeLang(lang){
- document.getElementById("title").innerText = translations[lang].title;
- document.getElementById("subtitle").innerText = translations[lang].subtitle;
- document.getElementById("btnBook").innerText = translations[lang].btn;
- document.getElementById("expTitle").innerText = translations[lang].expTitle;
- document.getElementById("expText").innerText = translations[lang].expText;
+ currentLang=lang;
+ Object.keys(translations[lang]).forEach(key=>{
+  if(document.getElementById(key)){
+    document.getElementById(key).innerText=translations[lang][key];
+  }
+ });
+ updateWhatsApp();
 }
 
-/* AUTO DETECT LANGUAGE */
-const userLang = navigator.language.substring(0,2);
-
-if(translations[userLang]){
-    changeLang(userLang);
-} else {
-    changeLang("en");
-}
+const userLang=navigator.language.substring(0,2);
+if(translations[userLang]) changeLang(userLang);
+else updateWhatsApp();
 
 </script>
 
