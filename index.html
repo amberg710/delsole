@@ -4,37 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Del Sole Apartments</title>
+<title>Del Sole Apartments Rab</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 
-/* LOADER */
-#loader {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: #111;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    z-index: 9999;
-    animation: fadeOut 2s ease 2s forwards;
-}
-
-@keyframes fadeOut {
-    to {opacity:0; visibility:hidden;}
-}
-
 /* BASE */
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: #fff;
+    background: #ffffff;
     color: #222;
 }
 
@@ -46,30 +26,15 @@ nav {
     display: flex;
     justify-content: center;
     gap: 40px;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
     z-index: 1000;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
-    position: relative;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background: #BFA06F;
-    bottom: -5px;
-    left: 0;
-    transition: 0.3s;
-}
-
-nav a:hover::after {
-    width: 100%;
+    font-weight: 500;
 }
 
 /* HERO */
@@ -86,18 +51,16 @@ nav a:hover::after {
 
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 5rem;
-    animation: fadeUp 2s ease;
+    font-size: 4.5rem;
 }
 
 /* BUTTON */
 .btn {
-    padding: 14px 30px;
+    padding: 14px 28px;
     border-radius: 30px;
     text-decoration: none;
-    margin-top: 25px;
     display: inline-block;
-    transition: 0.4s;
+    margin-top: 20px;
 }
 
 .primary {
@@ -105,71 +68,73 @@ nav a:hover::after {
     color: white;
 }
 
-.primary:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+.secondary {
+    border: 1px solid #333;
+    color: #333;
 }
 
 /* SECTION */
 .section {
-    padding: 140px 10%;
+    padding: 120px 10%;
     display: flex;
-    gap: 80px;
+    gap: 60px;
     align-items: center;
-    opacity: 0;
-    transform: translateY(60px);
-    transition: 1s;
-}
-
-.section.show {
-    opacity: 1;
-    transform: translateY(0);
+    flex-wrap: wrap;
 }
 
 .section img {
-    width: 50%;
-    border-radius: 20px;
-    transition: 1s;
+    width: 45%;
+    border-radius: 16px;
+    transition: 0.5s;
 }
 
 .section img:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
-/* TEXT */
 .text {
-    width: 50%;
+    width: 45%;
 }
 
 .text h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .text p {
-    line-height: 1.8;
     color: #555;
+    line-height: 1.7;
+}
+
+/* ALT */
+.alt {
+    background: #f7f5f2;
 }
 
 /* GALLERY */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 15px;
-    padding: 80px;
+.gallery-advanced {
+    column-count: 3;
+    column-gap: 15px;
+    padding: 80px 10%;
 }
 
-.gallery img {
+.gallery-advanced img {
     width: 100%;
+    margin-bottom: 15px;
     border-radius: 15px;
     opacity: 0;
-    transform: scale(0.9);
-    transition: 1s;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.8s ease;
+    cursor: pointer;
 }
 
-.gallery img.show {
+.gallery-advanced img.show {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
+}
+
+.gallery-advanced img:hover {
+    transform: scale(1.03);
 }
 
 /* CONTACT */
@@ -178,10 +143,68 @@ nav a:hover::after {
     padding: 120px 20px;
 }
 
-/* ANIMATION */
-@keyframes fadeUp {
-    from {opacity:0; transform: translateY(40px);}
-    to {opacity:1; transform: translateY(0);}
+/* FLOAT BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+}
+
+.float-btn {
+    padding: 12px 18px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
+
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+    z-index: 9999;
+}
+
+#lightbox.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    transform: scale(0.9);
+    transition: 0.4s;
+}
+
+#lightbox.show img {
+    transform: scale(1);
+}
+
+#close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
 }
 
 </style>
@@ -189,87 +212,134 @@ nav a:hover::after {
 
 <body>
 
-<div id="loader">Del Sole</div>
-
 <nav>
 <a href="#home">Home</a>
 <a href="#experience">Experience</a>
-<a href="#gallery">Gallery</a>
+<a href="#amenities">Amenities</a>
+<a href="#location">Location</a>
 <a href="#contact">Book</a>
 </nav>
 
 <section class="hero" id="home">
 <div>
-<h1>Del Sole</h1>
-<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
-Book Now
-</a>
+<h1>Del Sole Apartments</h1>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
 </div>
 </section>
 
 <section class="section" id="experience">
 <div class="text">
-<h2>Luxury by the sea</h2>
+<h2>Relax by the sea</h2>
 <p>
-2 minutes to sandy beaches. Restaurants just steps away.
-Relaxation, simplicity and Mediterranean lifestyle.
+Just a short walk from sandy beaches and local restaurants.  
+A peaceful location designed for rest and comfort.
 </p>
 </div>
 <img src="balconyview.png">
 </section>
 
-<section class="section">
+<section class="section alt">
 <img src="bedroom.png">
 <div class="text">
-<h2>Comfort & elegance</h2>
+<h2>Comfort and simplicity</h2>
 <p>
-Air-conditioned apartments with private balconies and stunning views.
-Designed for unforgettable stays.
+Air-conditioned apartments with private balconies, sea views, WiFi and parking.  
+Ideal for families, couples and longer stays.
 </p>
 </div>
 </section>
 
-<section class="gallery" id="gallery">
+<section class="section" id="amenities">
+<div class="text">
+<h2>Everything you need</h2>
+<p>
+Air-conditioned apartments<br>
+Sandy beach within walking distance<br>
+Restaurants nearby<br>
+BBQ and seafood options<br>
+Free parking and WiFi<br>
+Close to Rab Old Town<br>
+Near Paradise Beach in Lopar
+</p>
+</div>
+<img src="seaview.png">
+</section>
+
+<section class="gallery-advanced">
+<img src="balconyview.png">
 <img src="bedroom.png">
 <img src="kitchen.png">
-<img src="balcony.png">
 <img src="seaview.png">
 <img src="parkingnight.png">
-<img src="Screenshot (252).png">
+<img src="balcony.png">
+</section>
+
+<section id="location" style="padding:100px 10%; text-align:center;">
+<h2 style="font-family:'Cormorant Garamond', serif;">Location</h2>
+
+<iframe 
+src="https://maps.google.com/maps?q=Supetarska%20Draga%20287&t=k&z=15&ie=UTF8&iwloc=&output=embed"
+width="100%" height="350" style="border-radius:20px;border:none;">
+</iframe>
+
+<br><br>
+
+<a class="btn secondary" 
+href="https://www.google.com/maps/dir/?api=1&destination=Supetarska+Draga+287" 
+target="_blank">Get Directions</a>
 </section>
 
 <section class="contact" id="contact">
 <h2 style="font-family:'Cormorant Garamond', serif;">Book your stay</h2>
 
-<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
-Check Availability
-</a>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Book on Booking</a>
 
+<br><br>
+
+<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">Contact via WhatsApp</a>
+
+<p>delsolerab@gmail.com</p>
 </section>
 
-<script>
+<div class="floating-buttons">
+<a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank" class="float-btn booking">Book</a>
+<a href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank" class="float-btn whatsapp">WhatsApp</a>
+</div>
 
-/* SCROLL ANIMATION */
-const sections = document.querySelectorAll('.section');
-const images = document.querySelectorAll('.gallery img');
+<div id="lightbox">
+<span id="close">&times;</span>
+<img id="lightbox-img">
+</div>
+
+<script>
+const galleryImages = document.querySelectorAll('.gallery-advanced img');
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.getElementById("close");
 
 window.addEventListener('scroll', () => {
-
-sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-        sec.classList.add('show');
-    }
-});
-
-images.forEach(img => {
+  galleryImages.forEach((img, i) => {
     const top = img.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-        img.classList.add('show');
+    if(top < window.innerHeight - 50){
+        setTimeout(() => img.classList.add('show'), i * 100);
     }
+  });
 });
 
+galleryImages.forEach(img => {
+    img.addEventListener("click", () => {
+        lightbox.classList.add("show");
+        lightboxImg.src = img.src;
+    });
 });
+
+closeBtn.onclick = () => lightbox.classList.remove("show");
+
+lightbox.onclick = (e) => {
+    if(e.target !== lightboxImg){
+        lightbox.classList.remove("show");
+    }
+};
 </script>
 
 </body>
