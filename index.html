@@ -46,7 +46,7 @@ nav a::after {
     background: #BFA06F;
     bottom: -5px;
     left: 0;
-    transition: 0.3s;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 nav a:hover::after {
@@ -134,15 +134,19 @@ nav a:hover::after {
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     padding: 80px 10%;
+    scroll-behavior: smooth;
 }
 
 .gallery-advanced img {
     width: 100%;
     border-radius: 15px;
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
+    transform: translateY(60px) scale(0.92);
     transition: all 0.3s ease;
     cursor: pointer;
+    will-change: transform, opacity;
+}
+    
 }
 
 .gallery-advanced img.show {
@@ -363,7 +367,7 @@ window.addEventListener('scroll', () => {
   galleryImages.forEach((img, i) => {
     const top = img.getBoundingClientRect().top;
     if(top < window.innerHeight - 50){
-        setTimeout(() => img.classList.add('show'), i * 100);
+        setTimeout(() => img.classList.add('show'), i * 180);
     }
   });
 });
