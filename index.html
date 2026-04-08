@@ -31,7 +31,6 @@ nav {
     background: rgba(255,255,255,0.85);
     backdrop-filter: blur(10px);
     z-index: 1000;
-    transition: 0.4s;
 }
 
 nav a {
@@ -60,8 +59,8 @@ nav a:hover::after {
 .hamburger {
     position: fixed;
     top: 20px;
-    right: 20px;
-    width: 30px;
+    right: 15px;
+    width: 28px;
     height: 22px;
     cursor: pointer;
     z-index: 1100;
@@ -76,16 +75,6 @@ nav a:hover::after {
     transition: 0.3s;
 }
 
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
 /* HERO */
 .hero {
     height: 100vh;
@@ -96,11 +85,12 @@ nav a:hover::after {
     justify-content: center;
     text-align: center;
     color: white;
+    padding: 0 20px;
 }
 
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
+    font-size: 4.5rem;
 }
 
 /* BUTTON */
@@ -110,7 +100,7 @@ nav a:hover::after {
     text-decoration: none;
     display: inline-block;
     margin-top: 25px;
-    transition: 0.3s;
+    transition: all 0.4s ease;
 }
 
 .primary {
@@ -119,7 +109,7 @@ nav a:hover::after {
 }
 
 .primary:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.03);
 }
 
 /* SECTION */
@@ -136,41 +126,79 @@ nav a:hover::after {
     border-radius: 16px;
 }
 
-.text { width: 45%; }
+.text {
+    width: 45%;
+}
 
 .text h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.6rem;
 }
 
-.alt { background: #f7f5f2; }
+.text p {
+    color: #555;
+    line-height: 1.8;
+}
 
-/* GALLERY SLIDER */
-.gallery-slider {
+/* ALT */
+.alt {
+    background: #f7f5f2;
+}
+
+/* GALLERY (UPDATED BUT SAME STYLE) */
+.gallery-advanced {
     display: flex;
     overflow-x: auto;
-    gap: 20px;
+    gap: 15px;
     padding: 80px 10%;
     scroll-snap-type: x mandatory;
 }
 
-.gallery-slider img {
-    width: 70%;
+.gallery-advanced img {
+    min-width: 80%;
     border-radius: 15px;
-    scroll-snap-align: center;
     cursor: pointer;
-    transition: 0.4s;
+    scroll-snap-align: center;
+    transition: 0.5s;
 }
 
-.gallery-slider img:hover {
-    transform: scale(1.05);
+/* CONTACT */
+.contact {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+/* FLOAT BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.float-btn {
+    padding: 12px 18px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    animation: float 2.5s infinite;
+}
+
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
 /* LIGHTBOX */
 #lightbox {
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: rgba(0,0,0,0.95);
     top: 0;
     left: 0;
@@ -192,53 +220,42 @@ nav a:hover::after {
     max-height: 80%;
 }
 
-/* FLOAT BUTTONS */
-.floating-buttons {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.float-btn {
-    padding: 14px 20px;
-    border-radius: 30px;
-    color: white;
-    text-decoration: none;
-    animation: float 2s infinite;
-}
-
-.booking { background: #BFA06F; }
-.whatsapp { background: #25D366; }
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
 /* MOBILE */
 @media (max-width: 768px) {
 
+    .hamburger {
+        display: block;
+    }
+
     nav {
+        position: fixed;
+        top: 0;
         right: -100%;
         flex-direction: column;
         height: 100vh;
         width: 70%;
+        background: white;
         justify-content: center;
         align-items: center;
+        transition: 0.4s;
     }
 
-    nav.show { right: 0; }
+    nav.show {
+        right: 0;
+    }
 
-    .hamburger { display: block; }
+    .section {
+        flex-direction: column;
+        text-align: center;
+    }
 
-    .section { flex-direction: column; }
+    .section img, .text {
+        width: 100%;
+    }
 
-    .section img, .text { width: 100%; }
-
-    .gallery-slider img { width: 90%; }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
 }
 
 </style>
@@ -254,7 +271,7 @@ nav a:hover::after {
 </div>
 
 <!-- NAV -->
-<nav id="nav">
+<nav>
 <a href="#home">Home</a>
 <a href="#experience">Experience</a>
 <a href="#amenities">Amenities</a>
@@ -265,30 +282,30 @@ nav a:hover::after {
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>Peaceful sea view stay in Rab</p>
+<p>A peaceful retreat in Supetarska Draga where the sea and calm surroundings define your stay.</p>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
 </div>
 </section>
 
 <!-- SECTION -->
-<section class="section">
+<section class="section" id="experience">
 <div class="text">
 <h2>Moments by the sea</h2>
-<p>Wake up to calm sea views.</p>
+<p>Wake up to sea views and enjoy peaceful surroundings just steps from the beach.</p>
 </div>
 <img src="balconyview.png">
 </section>
 
-<section class="section alt">
+<section class="section alt" id="amenities">
 <img src="bedroom.png">
 <div class="text">
 <h2>Comfort and simplicity</h2>
-<p>Fully equipped apartments with balcony.</p>
+<p>Fully equipped apartments with air conditioning, balcony and sea view.</p>
 </div>
 </section>
 
 <!-- GALLERY -->
-<section class="gallery-slider" id="gallery">
+<section class="gallery-advanced">
 <img src="balconyview.png">
 <img src="bedroom.png">
 <img src="kitchen.png">
@@ -298,14 +315,12 @@ nav a:hover::after {
 </section>
 
 <!-- CONTACT -->
-<section class="section" id="contact">
-<div class="text">
+<section class="contact" id="contact">
 <h2>Book your stay</h2>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
-</div>
 </section>
 
-<!-- FLOAT BUTTONS -->
+<!-- FLOAT BUTTONS (UNCHANGED BUT ENHANCED) -->
 <div class="floating-buttons">
 <a class="float-btn booking" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book</a>
 <a class="float-btn whatsapp" href="https://wa.link/weiep6" target="_blank">WhatsApp</a>
@@ -320,15 +335,23 @@ nav a:hover::after {
 
 /* HAMBURGER */
 const hamburger = document.getElementById("hamburger");
-const nav = document.getElementById("nav");
+const nav = document.querySelector("nav");
 
 hamburger.onclick = () => {
     hamburger.classList.toggle("active");
     nav.classList.toggle("show");
 };
 
+/* CLOSE MENU ON CLICK */
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("show");
+    hamburger.classList.remove("active");
+  });
+});
+
 /* LIGHTBOX */
-const images = document.querySelectorAll(".gallery-slider img");
+const images = document.querySelectorAll(".gallery-advanced img");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 
@@ -342,22 +365,6 @@ images.forEach(img => {
 lightbox.onclick = () => {
     lightbox.classList.remove("show");
 };
-
-/* AUTO SLIDE */
-const slider = document.querySelector(".gallery-slider");
-
-let scrollAmount = 0;
-
-setInterval(() => {
-    scrollAmount += 300;
-    if(scrollAmount >= slider.scrollWidth){
-        scrollAmount = 0;
-    }
-    slider.scrollTo({
-        left: scrollAmount,
-        behavior: "smooth"
-    });
-}, 3000);
 
 </script>
 
