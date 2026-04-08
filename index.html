@@ -11,13 +11,13 @@
 <style>
 
 /* BASE */
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #222;
 }
 
 /* FIX NAV OFFSET */
@@ -33,13 +33,16 @@ nav {
     display: flex;
     justify-content: center;
     gap: 40px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
     z-index: 1000;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
+    font-weight: 500;
+    position: relative;
 }
 
 /* FLAGS */
@@ -53,61 +56,123 @@ nav a {
 .flags img {
     width: 20px;
     cursor: pointer;
+    opacity: 0.7;
+}
+
+.flags img:hover {
+    opacity: 1;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #BFA06F;
+    bottom: -5px;
+    left: 0;
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* HERO */
 .hero {
     height: 100vh;
-    background: url('image1C.png') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.3)),
+    url('image1C.png') center/cover fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
-    padding-top: 60px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+}
+
+/* BUTTON */
+.btn {
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 25px;
+    transition: all 0.4s ease;
+}
+
+.primary {
+    background: #BFA06F;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.primary:hover {
+    transform: translateY(-4px) scale(1.03);
 }
 
 /* SECTION */
 .section {
-    padding: 100px 10%;
+    padding: 120px 10%;
     display: flex;
-    gap: 50px;
+    gap: 60px;
     align-items: center;
     flex-wrap: wrap;
 }
 
 .section img {
     width: 45%;
-    max-width: 500px;
+    border-radius: 16px;
+    transition: 0.5s;
+}
+
+.section img:hover {
+    transform: scale(1.05);
 }
 
 .text {
     width: 45%;
 }
 
-/* GALLERY */
-.gallery-advanced {
-    max-width: 1200px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 15px;
-    padding: 80px 10%;
+.text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
 }
 
-/* FIXED ANIMATION */
+.text p {
+    color: #555;
+    line-height: 1.8;
+}
+
+.alt {
+    background: #f7f5f2;
+}
+
+/* GALLERY */
+.gallery-advanced {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 80px 10%;
+    scroll-behavior: smooth;
+}
+
 .gallery-advanced img {
     width: 100%;
     border-radius: 15px;
     opacity: 0;
-    transform: translateY(60px) scale(0.95);
-    transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(60px) scale(0.92);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
 }
 
-/* MOBILE FIX */
+/* MOBILE GALLERY */
 @media (max-width: 600px) {
-    nav { display:none; }
-
     .gallery-advanced {
         display: flex;
         overflow-x: auto;
@@ -121,32 +186,36 @@ nav a {
         min-width: 85%;
         scroll-snap-align: center;
     }
-
-    .section {
-        flex-direction: column;
-    }
-
-    .text, .section img {
-        width:100%;
-    }
 }
 
 /* MAP */
-.map-container {
-    width:45%;
-    max-width:500px;
+iframe {
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
-/* WHATSAPP FIX */
+/* CONTACT */
+.contact {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+/* WHATSAPP */
 .floating-buttons {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    z-index: 9999;
 }
 
 .float-icon {
     width: 48px;
     height: 48px;
+}
+
+/* REMOVE NAV ON PHONE */
+@media (max-width: 600px) {
+    nav { display: none; }
 }
 
 </style>
@@ -159,39 +228,40 @@ nav a {
 <a href="#experience">Experience</a>
 <a href="#amenities">Amenities</a>
 <a href="#location">Location</a>
+<a href="#contact">Book</a>
 
 <div class="flags">
 <img src="https://flagcdn.com/w20/gb.png" onclick="changeLang('en')">
-<img src="https://flagcdn.com/w20/de.png" onclick="changeLang('de')">
 <img src="https://flagcdn.com/w20/it.png" onclick="changeLang('it')">
+<img src="https://flagcdn.com/w20/de.png" onclick="changeLang('de')">
 <img src="https://flagcdn.com/w20/hr.png" onclick="changeLang('hr')">
 </div>
 </nav>
 
-<section id="home" class="hero">
+<section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>A peaceful retreat by the sea</p>
+<p>A peaceful retreat in Supetarska Draga where the sea and calm surroundings define your stay.</p>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
 </div>
 </section>
 
-<section id="experience" class="section">
+<section class="section" id="experience">
 <div class="text">
 <h2>Moments by the sea</h2>
-<p>Wake up to sea views</p>
+<p>Wake up to sea views and enjoy peaceful surroundings just steps from the beach.</p>
 </div>
 <img src="balconyview.png">
 </section>
 
-<section id="amenities" class="section">
+<section class="section alt" id="amenities">
 <img src="bedroom.png">
 <div class="text">
-<h2>Comfort</h2>
-<p>Fully equipped apartments</p>
+<h2>Comfort and simplicity</h2>
+<p>Fully equipped apartments with air conditioning, balcony and sea view.</p>
 </div>
 </section>
 
-<!-- FULL GALLERY RESTORED -->
 <section class="gallery-advanced">
 <img src="balcony.png">
 <img src="parking2.png">
@@ -202,48 +272,48 @@ nav a {
 <img src="seaview.png">
 </section>
 
-<section id="location" class="section">
+<section class="section alt" id="location">
 <div class="text">
 <h2>Location</h2>
-<p>Rab Island</p>
+<p>Located in beautiful Supetarska Draga on Rab Island, surrounded by calm sea, hidden bays and stunning island views.</p>
 </div>
 
-<div class="map-container">
 <iframe 
-src="https://www.google.com/maps?q=44.8032,14.7067&z=14&output=embed"
-width="100%" height="350" style="border:0;">
+src="https://www.google.com/maps?q=44.8032,14.7067&hl=en&z=14&output=embed"
+width="100%" height="400" style="border:0;" loading="lazy">
 </iframe>
-</div>
+</section>
 
+<section class="contact" id="contact">
+<h2>Book your stay</h2>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
 </section>
 
 <div class="floating-buttons">
-<a target="_blank">
-<img class="float-icon" src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+<a id="waLink" target="_blank" class="float-icon">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 </a>
 </div>
 
 <script>
 
-/* ANIMATION */
-const imgs = document.querySelectorAll('.gallery-advanced img');
+/* GALLERY ANIMATION */
+const galleryImages = document.querySelectorAll('.gallery-advanced img');
 
 window.addEventListener('scroll', () => {
- imgs.forEach((img,i)=>{
-  if(img.getBoundingClientRect().top < window.innerHeight - 50){
-   setTimeout(()=>img.style.opacity=1, i*120);
-  }
- });
+  galleryImages.forEach((img, i) => {
+    if(img.getBoundingClientRect().top < window.innerHeight - 50){
+        setTimeout(() => img.style.opacity = 1, i * 150);
+    }
+  });
 });
 
-/* LANGUAGE + WHATSAPP */
+/* LANG + WHATSAPP */
 const translations = {
  en:"Hi, I want to book Del Sole Apartment.",
  it:"Ciao, vorrei prenotare.",
  de:"Hallo, ich möchte buchen.",
- hr:"Želim rezervirati.",
- hu:"Szeretnék foglalni.",
- sk:"Chcem rezervovať."
+ hr:"Želim rezervirati."
 };
 
 let currentLang = "en";
@@ -254,7 +324,7 @@ function changeLang(lang){
 }
 
 function updateWA(){
- document.querySelector(".floating-buttons a").href =
+ document.getElementById("waLink").href =
   "https://wa.me/385981676499?text=" + encodeURIComponent(translations[currentLang]);
 }
 
