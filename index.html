@@ -11,6 +11,8 @@
 <style>
 
 /* BASE */
+html { scroll-behavior: smooth; }
+
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
@@ -29,6 +31,7 @@ nav {
     background: rgba(255,255,255,0.85);
     backdrop-filter: blur(10px);
     z-index: 1000;
+    transition: 0.4s;
 }
 
 nav a {
@@ -36,7 +39,6 @@ nav a {
     color: #333;
     font-weight: 500;
     position: relative;
-    transition: 0.3s;
 }
 
 nav a::after {
@@ -54,6 +56,36 @@ nav a:hover::after {
     width: 100%;
 }
 
+/* HAMBURGER */
+.hamburger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 1100;
+    display: none;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    background: #333;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
 /* HERO */
 .hero {
     height: 100vh;
@@ -64,12 +96,11 @@ nav a:hover::after {
     justify-content: center;
     text-align: center;
     color: white;
-    padding: 0 20px;
 }
 
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4.5rem;
+    font-size: 4rem;
 }
 
 /* BUTTON */
@@ -79,27 +110,16 @@ nav a:hover::after {
     text-decoration: none;
     display: inline-block;
     margin-top: 25px;
-    transition: all 0.4s ease;
+    transition: 0.3s;
 }
 
 .primary {
     background: #BFA06F;
     color: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 .primary:hover {
-    transform: translateY(-4px) scale(1.03);
-}
-
-.secondary {
-    border: 1px solid #333;
-    color: #333;
-}
-
-.secondary:hover {
-    background: #333;
-    color: white;
+    transform: translateY(-4px);
 }
 
 /* SECTION */
@@ -114,85 +134,43 @@ nav a:hover::after {
 .section img {
     width: 45%;
     border-radius: 16px;
-    transition: 0.5s;
 }
 
-.section img:hover {
-    transform: scale(1.05);
-}
-
-.text {
-    width: 45%;
-}
+.text { width: 45%; }
 
 .text h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.6rem;
 }
 
-.text p {
-    color: #555;
-    line-height: 1.8;
-}
+.alt { background: #f7f5f2; }
 
-/* ALT */
-.alt {
-    background: #f7f5f2;
-}
-
-/* GALLERY */
-.gallery-advanced {
-    column-count: 3;
-    column-gap: 15px;
-    padding: 80px 10%;
-}
-
-.gallery-advanced img {
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 15px;
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: all 0.8s ease;
-    cursor: pointer;
-}
-
-.gallery-advanced img.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* CONTACT */
-.contact {
-    text-align: center;
-    padding: 120px 20px;
-}
-
-/* FLOAT BUTTONS */
-.floating-buttons {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+/* GALLERY SLIDER */
+.gallery-slider {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 80px 10%;
+    scroll-snap-type: x mandatory;
 }
 
-.float-btn {
-    padding: 12px 18px;
-    border-radius: 30px;
-    color: white;
-    text-decoration: none;
+.gallery-slider img {
+    width: 70%;
+    border-radius: 15px;
+    scroll-snap-align: center;
+    cursor: pointer;
+    transition: 0.4s;
 }
 
-.booking { background: #BFA06F; }
-.whatsapp { background: #25D366; }
+.gallery-slider img:hover {
+    transform: scale(1.05);
+}
 
 /* LIGHTBOX */
 #lightbox {
     position: fixed;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: rgba(0,0,0,0.95);
     top: 0;
     left: 0;
@@ -214,65 +192,53 @@ nav a:hover::after {
     max-height: 80%;
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* FLOAT BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-/* TABLET */
-@media (max-width: 1024px) {
-    .section {
-        flex-direction: column;
-        text-align: center;
-    }
-    .section img, .text {
-        width: 100%;
-    }
-    .hero h1 {
-        font-size: 3rem;
-    }
-    .gallery-advanced {
-        column-count: 2;
-    }
+.float-btn {
+    padding: 14px 20px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    animation: float 2s infinite;
+}
+
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 /* MOBILE */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
     nav {
-        flex-wrap: wrap;
-        gap: 10px;
-        font-size: 14px;
+        right: -100%;
+        flex-direction: column;
+        height: 100vh;
+        width: 70%;
+        justify-content: center;
+        align-items: center;
     }
 
-    .hero {
-        height: 90vh;
-    }
+    nav.show { right: 0; }
 
-    .hero h1 {
-        font-size: 2.2rem;
-    }
+    .hamburger { display: block; }
 
-    .btn {
-        font-size: 14px;
-        padding: 12px 20px;
-    }
+    .section { flex-direction: column; }
 
-    .section {
-        padding: 60px 20px;
-    }
+    .section img, .text { width: 100%; }
 
-    .text h2 {
-        font-size: 1.8rem;
-    }
-
-    .gallery-advanced {
-        column-count: 1;
-        padding: 50px 20px;
-    }
-
-    iframe {
-        height: 250px;
-    }
+    .gallery-slider img { width: 90%; }
 }
 
 </style>
@@ -280,26 +246,35 @@ nav a:hover::after {
 
 <body>
 
-<nav>
+<!-- HAMBURGER -->
+<div class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
 <a href="#home">Home</a>
 <a href="#experience">Experience</a>
 <a href="#amenities">Amenities</a>
-<a href="#location">Location</a>
 <a href="#contact">Book</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>A peaceful retreat in Supetarska Draga where the sea and calm surroundings define your stay.</p>
+<p>Peaceful sea view stay in Rab</p>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
 </div>
 </section>
 
+<!-- SECTION -->
 <section class="section">
 <div class="text">
 <h2>Moments by the sea</h2>
-<p>Wake up to sea views and enjoy peaceful surroundings just steps from the beach.</p>
+<p>Wake up to calm sea views.</p>
 </div>
 <img src="balconyview.png">
 </section>
@@ -308,11 +283,12 @@ nav a:hover::after {
 <img src="bedroom.png">
 <div class="text">
 <h2>Comfort and simplicity</h2>
-<p>Fully equipped apartments with air conditioning, balcony and sea view.</p>
+<p>Fully equipped apartments with balcony.</p>
 </div>
 </section>
 
-<section class="gallery-advanced">
+<!-- GALLERY -->
+<section class="gallery-slider" id="gallery">
 <img src="balconyview.png">
 <img src="bedroom.png">
 <img src="kitchen.png">
@@ -321,22 +297,68 @@ nav a:hover::after {
 <img src="balcony.png">
 </section>
 
-<section class="contact">
+<!-- CONTACT -->
+<section class="section" id="contact">
+<div class="text">
 <h2>Book your stay</h2>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
+</div>
 </section>
 
-<script>
-const galleryImages = document.querySelectorAll('.gallery-advanced img');
+<!-- FLOAT BUTTONS -->
+<div class="floating-buttons">
+<a class="float-btn booking" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book</a>
+<a class="float-btn whatsapp" href="https://wa.link/weiep6" target="_blank">WhatsApp</a>
+</div>
 
-window.addEventListener('scroll', () => {
-  galleryImages.forEach((img, i) => {
-    const top = img.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50){
-        setTimeout(() => img.classList.add('show'), i * 100);
-    }
-  });
+<!-- LIGHTBOX -->
+<div id="lightbox">
+<img src="" id="lightbox-img">
+</div>
+
+<script>
+
+/* HAMBURGER */
+const hamburger = document.getElementById("hamburger");
+const nav = document.getElementById("nav");
+
+hamburger.onclick = () => {
+    hamburger.classList.toggle("active");
+    nav.classList.toggle("show");
+};
+
+/* LIGHTBOX */
+const images = document.querySelectorAll(".gallery-slider img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+
+images.forEach(img => {
+    img.onclick = () => {
+        lightbox.classList.add("show");
+        lightboxImg.src = img.src;
+    };
 });
+
+lightbox.onclick = () => {
+    lightbox.classList.remove("show");
+};
+
+/* AUTO SLIDE */
+const slider = document.querySelector(".gallery-slider");
+
+let scrollAmount = 0;
+
+setInterval(() => {
+    scrollAmount += 300;
+    if(scrollAmount >= slider.scrollWidth){
+        scrollAmount = 0;
+    }
+    slider.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+    });
+}, 3000);
+
 </script>
 
 </body>
