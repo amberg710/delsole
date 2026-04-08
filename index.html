@@ -9,11 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+
+/* BASE */
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: #fff;
+    background: #ffffff;
     color: #222;
+    overflow-x: hidden;
 }
 
 /* NAV */
@@ -24,20 +27,38 @@ nav {
     display: flex;
     justify-content: center;
     gap: 40px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
     z-index: 1000;
 }
 
 nav a {
     text-decoration: none;
     color: #333;
+    font-weight: 500;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #BFA06F;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* HERO */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-    url('image1C.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)),
+    url('image1C.png') center/cover fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,14 +68,43 @@ nav a {
 
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
-    letter-spacing: 1px;
+    font-size: 4.5rem;
+    animation: fadeIn 2s ease;
 }
 
 .hero p {
-    max-width: 500px;
-    margin: auto;
-    font-size: 1.2rem;
+    margin-top: 10px;
+    animation: fadeIn 3s ease;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-top: 25px;
+    transition: 0.4s;
+}
+
+.primary {
+    background: #BFA06F;
+    color: white;
+}
+
+.primary:hover {
+    background: #a88d5c;
+    transform: translateY(-3px);
+}
+
+.secondary {
+    border: 1px solid #333;
+    color: #333;
+}
+
+.secondary:hover {
+    background: #333;
+    color: white;
 }
 
 /* SECTION */
@@ -63,13 +113,28 @@ nav a {
     display: flex;
     align-items: center;
     gap: 80px;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: 1s;
+}
+
+.section.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section img {
     width: 50%;
-    border-radius: 16px;
+    border-radius: 20px;
+    transform: scale(0.95);
+    transition: 1s;
 }
 
+.section.show img {
+    transform: scale(1);
+}
+
+/* TEXT */
 .text {
     width: 50%;
 }
@@ -80,26 +145,13 @@ nav a {
 }
 
 .text p {
-    font-size: 1.1rem;
+    line-height: 1.8;
     color: #555;
-    line-height: 1.7;
 }
 
-/* ALT */
+/* ALT BG */
 .alt {
     background: #f6f3ee;
-}
-
-/* BUTTON */
-.btn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 14px 28px;
-    background: #BFA06F;
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    font-size: 0.95rem;
 }
 
 /* CONTACT */
@@ -107,6 +159,13 @@ nav a {
     text-align: center;
     padding: 120px 20px;
 }
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
 </style>
 </head>
 
@@ -114,7 +173,7 @@ nav a {
 
 <nav>
 <a href="#home">Home</a>
-<a href="#about">Experience</a>
+<a href="#experience">Experience</a>
 <a href="#apartments">Apartments</a>
 <a href="#contact">Book</a>
 </nav>
@@ -123,70 +182,78 @@ nav a {
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>
-A peaceful escape in Supetarska Draga — where the sea, silence and sunlight define your stay.
-</p>
-<a class="btn" href="#contact">Check Availability</a>
+<p>Sea. Silence. Mediterranean comfort.</p>
+
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Check Availability
+</a>
 </div>
 </section>
 
-<!-- SECTION 1 -->
-<section class="section" id="about">
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
 <div class="text">
-<h2>Wake up by the sea</h2>
+<h2>Everything within reach</h2>
 <p>
-Start your day with soft sea breeze and quiet surroundings.  
-Just a short walk from the beach, your mornings here feel slow, calm and completely yours.
+Just 2 minutes from sandy beaches and less than 1 minute to restaurants with fresh seafood and BBQ.
+A peaceful location with everything close by.
 </p>
 </div>
 <img src="balconyview.png">
 </section>
 
-<!-- SECTION 2 -->
-<section class="section alt">
+<!-- APARTMENTS -->
+<section class="section alt" id="apartments">
 <img src="bedroom.png">
 <div class="text">
-<h2>Designed for comfort</h2>
+<h2>Comfort & simplicity</h2>
 <p>
-Each apartment offers space, light and simplicity.  
-Perfect for couples, families or friends looking for a relaxed and comfortable stay.
+Air-conditioned apartments with private balconies, sea views, free WiFi and parking.
+Perfect for families and couples.
 </p>
 </div>
 </section>
 
-<!-- SECTION 3 -->
+<!-- LOCATION -->
 <section class="section">
 <div class="text">
-<h2>Everything you need</h2>
+<h2>Explore Rab</h2>
 <p>
-Fully equipped kitchens, private balconies, free parking and WiFi —  
-everything is designed to make your stay easy and enjoyable.
+Close to Rab old town and just a short drive from Paradise Beach in Lopar.
+Enjoy the island lifestyle with nature and sea all around you.
 </p>
 </div>
-<img src="kitchen.png">
+<img src="seaview.png">
 </section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-<h2 style="font-family:'Cormorant Garamond', serif; font-size:2.5rem;">
-Plan your stay
-</h2>
+<h2 style="font-family:'Cormorant Garamond', serif;">Plan your stay</h2>
 
-<p>Contact us directly for the best availability and price</p>
-
-<a class="btn" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
-WhatsApp Booking
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Book on Booking.com
 </a>
 
 <br><br>
 
-<a class="btn" href="https://www.booking.com/Share-1ke0rxn" target="_blank">
-View on Booking.com
+<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
+WhatsApp Contact
 </a>
 
-<p style="margin-top:20px;">delsolerab@gmail.com</p>
-
 </section>
+
+<script>
+const sections = document.querySelectorAll('.section');
+
+window.addEventListener('scroll', () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      sec.classList.add('show');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
