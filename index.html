@@ -6,17 +6,19 @@
 
 <title>Del Sole Apartments Rab</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+
+/* BASE */
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background: #ffffff;
-    color: #333;
+    color: #222;
 }
 
-/* NAVBAR */
+/* NAV */
 nav {
     position: fixed;
     width: 100%;
@@ -33,13 +35,30 @@ nav a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
+    position: relative;
+    transition: 0.3s;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #BFA06F;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* HERO */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
-    url('image1C.png') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.3)),
+    url('image1C.png') center/cover fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,145 +67,323 @@ nav a {
 }
 
 .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    letter-spacing: 1px;
+}
+
+/* BUTTON */
+.btn {
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 25px;
+    transition: all 0.4s ease;
+}
+
+.primary {
+    background: #BFA06F;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.primary:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.secondary {
+    border: 1px solid #333;
+    color: #333;
+}
+
+.secondary:hover {
+    background: #333;
+    color: white;
+    transform: translateY(-3px);
 }
 
 /* SECTION */
 .section {
     padding: 120px 10%;
     display: flex;
-    align-items: center;
     gap: 60px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .section img {
-    width: 50%;
-    border-radius: 20px;
+    width: 45%;
+    border-radius: 16px;
+    transition: 0.5s;
 }
 
+.section img:hover {
+    transform: scale(1.05);
+}
+
+/* TEXT */
 .text {
-    width: 50%;
+    width: 45%;
 }
 
 .text h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
 }
 
 .text p {
-    color: #666;
-    line-height: 1.6;
+    color: #555;
+    line-height: 1.8;
 }
 
-/* ALT BG */
+/* ALT */
 .alt {
     background: #f7f5f2;
 }
 
-/* FULL IMAGE */
-.full {
-    height: 80vh;
-    background: url('seaview.png') center/cover;
+/* GALLERY */
+.gallery-advanced {
+    column-count: 3;
+    column-gap: 15px;
+    padding: 80px 10%;
 }
 
-/* BUTTON */
-.btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 25px;
-    background: #BFA06F;
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
+.gallery-advanced img {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.8s ease;
+    cursor: pointer;
+}
+
+.gallery-advanced img.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.gallery-advanced img:hover {
+    transform: scale(1.05);
 }
 
 /* CONTACT */
 .contact {
     text-align: center;
-    padding: 100px 20px;
+    padding: 120px 20px;
 }
+
+/* FLOAT BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+}
+
+.float-btn {
+    padding: 12px 18px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.float-btn:hover {
+    transform: scale(1.05);
+}
+
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
+
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+    z-index: 9999;
+}
+
+#lightbox.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    transform: scale(0.9);
+    transition: 0.4s;
+}
+
+#lightbox.show img {
+    transform: scale(1);
+}
+
+#close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
 <a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#apartments">Apartments</a>
-<a href="#contact">Contact</a>
+<a href="#experience">Experience</a>
+<a href="#amenities">Amenities</a>
+<a href="#location">Location</a>
+<a href="#contact">Book</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
-<p>Supetarska Draga • Rab • Croatia</p>
-<a class="btn" href="#contact">Book Now</a>
+<p>
+A peaceful retreat in Supetarska Draga where the sea, sunlight and silence create the perfect setting for your stay.
+</p>
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Check Availability
+</a>
 </div>
 </section>
 
-<!-- ABOUT -->
-<section class="section" id="about">
+<section class="section" id="experience">
 <div class="text">
-<h2>Peaceful stay by the sea</h2>
+<h2>Moments by the sea</h2>
 <p>
-Located in Supetarska Draga on the island of Rab, Del Sole Apartments offer a calm and relaxing escape just minutes from the beach.
-Wake up to the sound of the sea, enjoy your morning coffee on the balcony, and experience true Mediterranean living.
+Wake up to the gentle sound of the sea and enjoy mornings filled with light and fresh air.  
+Just a short walk from sandy beaches and surrounded by nature, Del Sole offers a calm and authentic island experience where every day feels effortless.
 </p>
 </div>
 <img src="balconyview.png">
 </section>
 
-<!-- FULL IMAGE -->
-<div class="full"></div>
-
-<!-- APARTMENTS -->
-<section class="section alt" id="apartments">
+<section class="section alt">
 <img src="bedroom.png">
 <div class="text">
-<h2>Comfort for families & couples</h2>
+<h2>Comfort designed for living</h2>
 <p>
-Each apartment features a fully equipped kitchen, private bathroom, air conditioning, and a balcony with sea or garden views.
-Perfect for families, couples, and friends looking for a peaceful holiday.
+Each apartment is thoughtfully arranged to provide space, comfort and simplicity.  
+With air conditioning, private balconies and fully equipped kitchens, everything is designed to make your stay relaxed, easy and enjoyable.
 </p>
 </div>
 </section>
 
-<!-- DETAILS -->
-<section class="section">
+<section class="section" id="amenities">
 <div class="text">
-<h2>Everything you need</h2>
+<h2>A location that brings everything closer</h2>
 <p>
-✔ Sea view apartments<br>
-✔ Free WiFi & parking<br>
-✔ Beach just minutes away<br>
-✔ BBQ & outdoor space<br>
-✔ Quiet and relaxing location
+The sandy beach is only a two-minute walk away, while local restaurants offering fresh seafood and traditional barbecue are just steps from your door.  
+You are close to the historic old town of Rab and within easy reach of Paradise Beach in Lopar, making it an ideal base to explore the island.
 </p>
 </div>
-<img src="kitchen.png">
+<img src="seaview.png">
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-<h2>Book your stay</h2>
+<section class="gallery-advanced">
+<img src="balconyview.png">
+<img src="bedroom.png">
+<img src="kitchen.png">
+<img src="seaview.png">
+<img src="parkingnight.png">
+<img src="balcony.png">
+</section>
 
-<a class="btn" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
-📱 WhatsApp Booking
+<section id="location" style="padding:100px 10%; text-align:center;">
+<h2 style="font-family:'Cormorant Garamond', serif;">Location</h2>
+
+<iframe 
+src="https://maps.google.com/maps?q=Supetarska%20Draga%20287&t=k&z=15&ie=UTF8&iwloc=&output=embed"
+width="100%" height="350" style="border-radius:20px;border:none;">
+</iframe>
+
+<br><br>
+
+<a class="btn secondary" 
+href="https://www.google.com/maps/dir/?api=1&destination=Supetarska+Draga+287" 
+target="_blank">
+Get Directions
+</a>
+</section>
+
+<section class="contact" id="contact">
+<h2 style="font-family:'Cormorant Garamond', serif;">Plan your stay</h2>
+
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Book on Booking
 </a>
 
 <br><br>
 
-<a class="btn" href="https://www.booking.com/Share-1ke0rxn" target="_blank">
-🌍 Book on Booking.com
+<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
+Contact via WhatsApp
 </a>
 
-<p style="margin-top:20px;">delsolerab@gmail.com</p>
-
+<p>delsolerab@gmail.com</p>
 </section>
+
+<div class="floating-buttons">
+<a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank" class="float-btn booking">Book</a>
+<a href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank" class="float-btn whatsapp">WhatsApp</a>
+</div>
+
+<div id="lightbox">
+<span id="close">&times;</span>
+<img id="lightbox-img">
+</div>
+
+<script>
+const galleryImages = document.querySelectorAll('.gallery-advanced img');
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.getElementById("close");
+
+window.addEventListener('scroll', () => {
+  galleryImages.forEach((img, i) => {
+    const top = img.getBoundingClientRect().top;
+    if(top < window.innerHeight - 50){
+        setTimeout(() => img.classList.add('show'), i * 100);
+    }
+  });
+});
+
+galleryImages.forEach(img => {
+    img.addEventListener("click", () => {
+        lightbox.classList.add("show");
+        lightboxImg.src = img.src;
+    });
+});
+
+closeBtn.onclick = () => lightbox.classList.remove("show");
+
+lightbox.onclick = (e) => {
+    if(e.target !== lightboxImg){
+        lightbox.classList.remove("show");
+    }
+};
+</script>
 
 </body>
 </html>
