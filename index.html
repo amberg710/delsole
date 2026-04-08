@@ -4,42 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Del Sole Apartments</title>
+<title>Del Sole Apartments Rab</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: #111;
-    color: white;
-    overflow-x: hidden;
+    background: #ffffff;
+    color: #333;
+}
+
+/* NAVBAR */
+nav {
+    position: fixed;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
 }
 
 /* HERO */
 .hero {
     height: 100vh;
-    background: url('image1C.png') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+    url('image1C.png') center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    color: white;
 }
 
 .hero h1 {
-    font-size: 4rem;
-    font-weight: 300;
-    letter-spacing: 2px;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
 }
 
-/* SCROLL SECTION */
+/* SECTION */
 .section {
     padding: 120px 10%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 40px;
+    gap: 60px;
 }
 
 .section img {
@@ -52,34 +70,35 @@ body {
 }
 
 .text h2 {
+    font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    font-weight: 300;
 }
 
 .text p {
-    color: #ccc;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ALT BG */
+.alt {
+    background: #f7f5f2;
 }
 
 /* FULL IMAGE */
 .full {
-    height: 100vh;
+    height: 80vh;
     background: url('seaview.png') center/cover;
 }
 
 /* BUTTON */
 .btn {
-    margin-top: 20px;
     display: inline-block;
+    margin-top: 20px;
     padding: 12px 25px;
-    border: 1px solid white;
-    text-decoration: none;
+    background: #BFA06F;
     color: white;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: white;
-    color: black;
+    text-decoration: none;
+    border-radius: 30px;
 }
 
 /* CONTACT */
@@ -92,50 +111,82 @@ body {
 
 <body>
 
+<!-- NAV -->
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#apartments">Apartments</a>
+<a href="#contact">Contact</a>
+</nav>
+
 <!-- HERO -->
-<div class="hero">
-<h1>Del Sole</h1>
+<section class="hero" id="home">
+<div>
+<h1>Del Sole Apartments</h1>
+<p>Supetarska Draga • Rab • Croatia</p>
+<a class="btn" href="#contact">Book Now</a>
 </div>
+</section>
 
-<!-- STORY 1 -->
-<div class="section">
+<!-- ABOUT -->
+<section class="section" id="about">
 <div class="text">
-<h2>Wake up to the sea</h2>
-<p>Experience calm mornings and peaceful sunsets in Supetarska Draga.</p>
+<h2>Peaceful stay by the sea</h2>
+<p>
+Located in Supetarska Draga on the island of Rab, Del Sole Apartments offer a calm and relaxing escape just minutes from the beach.
+Wake up to the sound of the sea, enjoy your morning coffee on the balcony, and experience true Mediterranean living.
+</p>
 </div>
-<img src="bedroom.png">
-</div>
-
-<!-- STORY 2 -->
-<div class="section">
 <img src="balconyview.png">
-<div class="text">
-<h2>Your private view</h2>
-<p>Enjoy your coffee overlooking the Adriatic Sea.</p>
-</div>
-</div>
+</section>
 
-<!-- FULL IMAGE BREAK -->
+<!-- FULL IMAGE -->
 <div class="full"></div>
 
-<!-- STORY 3 -->
-<div class="section">
+<!-- APARTMENTS -->
+<section class="section alt" id="apartments">
+<img src="bedroom.png">
 <div class="text">
-<h2>Modern comfort</h2>
-<p>Fully equipped kitchen and stylish interiors.</p>
+<h2>Comfort for families & couples</h2>
+<p>
+Each apartment features a fully equipped kitchen, private bathroom, air conditioning, and a balcony with sea or garden views.
+Perfect for families, couples, and friends looking for a peaceful holiday.
+</p>
+</div>
+</section>
+
+<!-- DETAILS -->
+<section class="section">
+<div class="text">
+<h2>Everything you need</h2>
+<p>
+✔ Sea view apartments<br>
+✔ Free WiFi & parking<br>
+✔ Beach just minutes away<br>
+✔ BBQ & outdoor space<br>
+✔ Quiet and relaxing location
+</p>
 </div>
 <img src="kitchen.png">
-</div>
+</section>
 
 <!-- CONTACT -->
-<div class="contact">
+<section class="contact" id="contact">
 <h2>Book your stay</h2>
 
 <a class="btn" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
-Book via WhatsApp
+📱 WhatsApp Booking
 </a>
 
-</div>
+<br><br>
+
+<a class="btn" href="https://www.booking.com/Share-1ke0rxn" target="_blank">
+🌍 Book on Booking.com
+</a>
+
+<p style="margin-top:20px;">delsolerab@gmail.com</p>
+
+</section>
 
 </body>
 </html>
