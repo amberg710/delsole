@@ -31,13 +31,6 @@ nav {
     z-index: 1000;
 }
 
-/* LOGO */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .logo img {
     height: 40px;
 }
@@ -45,7 +38,7 @@ nav {
 /* NAV LINKS */
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 40px;
 }
 
 nav a {
@@ -70,7 +63,7 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* HAMBURGER */
+/* MOBILE MENU */
 .menu-toggle {
     display: none;
     font-size: 28px;
@@ -103,7 +96,7 @@ nav a:hover::after {
     text-decoration: none;
     display: inline-block;
     margin-top: 25px;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .primary {
@@ -113,6 +106,16 @@ nav a:hover::after {
 
 .primary:hover {
     transform: translateY(-4px) scale(1.05);
+}
+
+.secondary {
+    border: 1px solid #333;
+    color: #333;
+}
+
+.secondary:hover {
+    background: #333;
+    color: white;
 }
 
 /* SECTION */
@@ -138,26 +141,65 @@ nav a:hover::after {
     width: 45%;
 }
 
-/* GALLERY SWIPE */
+.text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+}
+
+.text p {
+    color: #555;
+    line-height: 1.8;
+}
+
+/* ALT */
+.alt {
+    background: #f7f5f2;
+}
+
+/* GALLERY (DESKTOP SAME) */
 .gallery-advanced {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding: 60px 20px;
-    scroll-snap-type: x mandatory;
+    column-count: 3;
+    column-gap: 15px;
+    padding: 80px 10%;
 }
 
 .gallery-advanced img {
-    width: 80%;
-    flex: 0 0 auto;
+    width: 100%;
+    margin-bottom: 15px;
     border-radius: 15px;
-    scroll-snap-align: center;
+    cursor: pointer;
     transition: 0.4s;
 }
 
 .gallery-advanced img:hover {
     transform: scale(1.05);
 }
+
+/* CONTACT */
+.contact {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+/* FLOAT BUTTONS */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.float-btn {
+    padding: 12px 18px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+.booking { background: #BFA06F; }
+.whatsapp { background: #25D366; }
 
 /* LIGHTBOX */
 #lightbox {
@@ -185,14 +227,19 @@ nav a:hover::after {
     max-height: 80%;
 }
 
-/* ANIMATIONS */
+/* ANIMATION */
 @keyframes fadeUp {
     from {opacity:0; transform:translateY(30px);}
     to {opacity:1; transform:translateY(0);}
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
 
     .nav-links {
         position: fixed;
@@ -200,7 +247,7 @@ nav a:hover::after {
         right: -100%;
         flex-direction: column;
         background: white;
-        width: 200px;
+        width: 220px;
         padding: 20px;
         transition: 0.3s;
     }
@@ -209,13 +256,10 @@ nav a:hover::after {
         right: 0;
     }
 
-    .menu-toggle {
-        display: block;
-    }
-
     .section {
         flex-direction: column;
         text-align: center;
+        padding: 80px 20px;
     }
 
     .section img,
@@ -224,12 +268,23 @@ nav a:hover::after {
     }
 
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
+    }
+
+    /* SWIPE GALLERY ON MOBILE */
+    .gallery-advanced {
+        column-count: 1;
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 40px 20px;
     }
 
     .gallery-advanced img {
-        width: 90%;
+        width: 80%;
+        flex: 0 0 auto;
     }
+
 }
 
 </style>
@@ -256,18 +311,35 @@ nav a:hover::after {
 <section class="hero" id="home">
 <div>
 <h1>Del Sole Apartments</h1>
+<p>A peaceful retreat in Supetarska Draga where the sea, sunlight and calm surroundings define your stay.</p>
 <a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
 Check Availability
 </a>
 </div>
 </section>
 
-<section class="section">
+<section class="section" id="experience">
 <div class="text">
 <h2>Moments by the sea</h2>
 <p>Wake up to sea views and enjoy peaceful surroundings.</p>
 </div>
 <img src="balconyview.png">
+</section>
+
+<section class="section alt">
+<img src="bedroom.png">
+<div class="text">
+<h2>Comfort and simplicity</h2>
+<p>Fully equipped apartments with air conditioning, balcony and sea view.</p>
+</div>
+</section>
+
+<section class="section" id="amenities">
+<div class="text">
+<h2>A location that brings everything closer</h2>
+<p>Sandy beach 2 minutes away, restaurants nearby, close to Rab town and Paradise Beach.</p>
+</div>
+<img src="seaview.png">
 </section>
 
 <section class="gallery-advanced">
@@ -279,18 +351,54 @@ Check Availability
 <img src="balcony.png">
 </section>
 
+<section id="location" style="padding:100px 10%; text-align:center;">
+<h2 style="font-family:'Cormorant Garamond', serif;">Location</h2>
+
+<iframe 
+src="https://maps.google.com/maps?q=Supetarska%20Draga%20287&t=k&z=15&ie=UTF8&iwloc=&output=embed"
+width="100%" height="350" style="border-radius:20px;border:none;">
+</iframe>
+
+<br><br>
+
+<a class="btn secondary" 
+href="https://www.google.com/maps/dir/?api=1&destination=Supetarska+Draga+287" 
+target="_blank">
+Get Directions
+</a>
+</section>
+
+<section class="contact" id="contact">
+<h2 style="font-family:'Cormorant Garamond', serif;">Plan your stay</h2>
+
+<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">
+Book on Booking
+</a>
+
+<br><br>
+
+<a class="btn secondary" href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank">
+Contact via WhatsApp
+</a>
+
+<p>delsolerab@gmail.com</p>
+</section>
+
+<div class="floating-buttons">
+<a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank" class="float-btn booking">Book</a>
+<a href="https://api.whatsapp.com/send?text=Hello%20I%20want%20to%20book%20Del%20Sole%20Apartments" target="_blank" class="float-btn whatsapp">WhatsApp</a>
+</div>
+
 <div id="lightbox">
 <img id="lightbox-img">
 </div>
 
 <script>
 
-/* MENU */
 function toggleMenu(){
     document.getElementById("navLinks").classList.toggle("active");
 }
 
-/* LIGHTBOX */
 const imgs = document.querySelectorAll('.gallery-advanced img');
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
