@@ -31,6 +31,7 @@ nav {
     z-index: 1000;
 }
 
+/* LOGO */
 .logo img {
     height: 40px;
 }
@@ -63,11 +64,31 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* MOBILE MENU */
+/* HAMBURGER */
 .menu-toggle {
     display: none;
-    font-size: 28px;
+    flex-direction: column;
+    gap: 6px;
     cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: #333;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* ANIMATION */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* HERO */
@@ -86,7 +107,6 @@ nav a:hover::after {
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 4.5rem;
-    animation: fadeUp 1s ease;
 }
 
 /* BUTTON */
@@ -156,7 +176,7 @@ nav a:hover::after {
     background: #f7f5f2;
 }
 
-/* GALLERY (DESKTOP SAME) */
+/* GALLERY */
 .gallery-advanced {
     column-count: 3;
     column-gap: 15px;
@@ -227,18 +247,12 @@ nav a:hover::after {
     max-height: 80%;
 }
 
-/* ANIMATION */
-@keyframes fadeUp {
-    from {opacity:0; transform:translateY(30px);}
-    to {opacity:1; transform:translateY(0);}
-}
-
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
 
     .menu-toggle {
-        display: block;
+        display: flex;
     }
 
     .nav-links {
@@ -271,7 +285,7 @@ nav a:hover::after {
         font-size: 2.4rem;
     }
 
-    /* SWIPE GALLERY ON MOBILE */
+    /* SWIPE GALLERY */
     .gallery-advanced {
         column-count: 1;
         display: flex;
@@ -284,7 +298,6 @@ nav a:hover::after {
         width: 80%;
         flex: 0 0 auto;
     }
-
 }
 
 </style>
@@ -297,7 +310,11 @@ nav a:hover::after {
 <img src="logor.png">
 </div>
 
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<div class="menu-toggle" onclick="toggleMenu()">
+<span></span>
+<span></span>
+<span></span>
+</div>
 
 <div class="nav-links" id="navLinks">
 <a href="#home">Home</a>
@@ -396,7 +413,11 @@ Contact via WhatsApp
 <script>
 
 function toggleMenu(){
-    document.getElementById("navLinks").classList.toggle("active");
+    const nav = document.getElementById("navLinks");
+    const toggle = document.querySelector(".menu-toggle");
+
+    nav.classList.toggle("active");
+    toggle.classList.toggle("active");
 }
 
 const imgs = document.querySelectorAll('.gallery-advanced img');
