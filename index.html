@@ -3,377 +3,466 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Del Sole Apartments Rab</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-
+<title>Del Sole Apartments · Rab Island</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
+:root{--gold:#C9A96E;--gold-light:#E8D5B0;--gold-dark:#A07840;--sand:#F7F3ED;--sand-dark:#EDE7DC;--sea:#1E3D4F;--dark:#111110;--text:#4A4744;--text-light:#8A8580;--white:#FFFFFF;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);overflow-x:hidden;cursor:none;}
 
-/* BASE */
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #ffffff;
-    color: #222;
-}
+/* CURSOR */
+#cur,#cur-ring{position:fixed;pointer-events:none;z-index:99999;border-radius:50%;}
+#cur{width:8px;height:8px;background:var(--gold);top:0;left:0;transform:translate(-50%,-50%);}
+#cur-ring{width:40px;height:40px;border:1px solid rgba(201,169,110,.45);top:0;left:0;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.22,1,.36,1),height .35s cubic-bezier(.22,1,.36,1),border-color .35s;}
+body.c-hover #cur-ring{width:60px;height:60px;border-color:var(--gold);}
+body.c-drag #cur{transform:translate(-50%,-50%) scale(2);background:var(--gold-dark);}
+@media(hover:none){#cur,#cur-ring{display:none;}body{cursor:auto;}}
 
 /* NAV */
-nav {
-    position: fixed;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-}
-
-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    position: relative;
-}
-
-nav a::after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    background: #BFA06F;
-    bottom: -5px;
-    left: 0;
-    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-nav a:hover::after {
-    width: 100%;
-}
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:28px 60px;display:flex;justify-content:space-between;align-items:center;transition:all .6s cubic-bezier(.22,1,.36,1);}
+nav.solid{background:rgba(255,255,255,.96);backdrop-filter:blur(20px);padding:18px 60px;border-bottom:1px solid rgba(0,0,0,.06);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:.06em;color:#fff;transition:color .4s;}
+nav.solid .nav-logo{color:var(--dark);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{text-decoration:none;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.8);transition:color .3s;position:relative;cursor:none;}
+nav.solid .nav-links a{color:var(--text);}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .5s cubic-bezier(.22,1,.36,1);}
+.nav-links a:hover::after,.nav-links a:hover{width:100%;color:var(--gold);}
+@media(max-width:768px){nav{padding:18px 24px;}.nav-links{display:none;}}
 
 /* HERO */
-.hero {
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.3)),
-    url('image1C.png') center/cover fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 0 20px;
-}
+.hero{height:100vh;min-height:640px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:url('image1C.png') center/cover no-repeat;animation:heroScale 12s ease-out both;}
+@keyframes heroScale{from{transform:scale(1.1);}to{transform:scale(1.0);}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.18) 55%,rgba(0,0,0,.1) 100%);}
+.hero-content{position:relative;z-index:2;padding:0 10% 80px;animation:fadeUp 1.2s .4s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px);}to{opacity:1;transform:none;}}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;}
+.hero-tag-line{width:28px;height:1px;background:var(--gold);}
+.hero-tag span{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,5.5rem);color:#fff;font-weight:400;line-height:1.05;margin-bottom:22px;max-width:680px;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.hero-sub{color:rgba(255,255,255,.62);font-size:.95rem;font-weight:300;line-height:1.8;max-width:370px;margin-bottom:38px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gold);color:#fff;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .4s cubic-bezier(.22,1,.36,1);box-shadow:0 8px 32px rgba(201,169,110,.35);}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-3px);box-shadow:0 14px 40px rgba(201,169,110,.45);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border:1px solid rgba(255,255,255,.35);border-radius:50px;color:rgba(255,255,255,.85);font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .4s;background:transparent;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.7);color:#fff;}
+.scroll-hint{position:absolute;bottom:32px;right:60px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:.45;animation:fadeUp 1s 2s both;}
+.scroll-hint span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;writing-mode:vertical-rl;}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,#fff,transparent);animation:scrollPulse 2s 2.5s infinite;}
+@keyframes scrollPulse{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
 
-.hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4.5rem;
-}
+/* STAT STRIP */
+.stat-strip{background:var(--dark);display:grid;grid-template-columns:repeat(4,1fr);}
+.stat{padding:28px 32px;border-right:1px solid rgba(255,255,255,.07);}
+.stat:last-child{border-right:none;}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);line-height:1;margin-bottom:4px;}
+.stat-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+@media(max-width:600px){.stat-strip{grid-template-columns:1fr 1fr;}.stat{padding:20px;border-bottom:1px solid rgba(255,255,255,.07);}
+.stat:nth-child(odd){border-right:1px solid rgba(255,255,255,.07);}}
 
-/* BUTTON */
-.btn {
-    padding: 14px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 25px;
-    transition: all 0.4s ease;
-}
+/* SECTIONS */
+.section{padding:120px 10%;}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.reveal.in{opacity:1;transform:none;}
+.rd1{transition-delay:.12s;}.rd2{transition-delay:.22s;}.rd3{transition-delay:.32s;}
+.s-label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.s-label::before{content:'';width:22px;height:1px;background:var(--gold);}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.8vw,3rem);font-weight:400;line-height:1.15;margin-bottom:20px;}
+.s-body{color:var(--text);line-height:1.9;font-weight:300;font-size:.95rem;}
 
-.primary {
-    background: #BFA06F;
-    color: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
+/* EXPERIENCE */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.exp-img-wrap{position:relative;border-radius:4px;overflow:hidden;}
+.exp-img-wrap img{width:100%;display:block;transition:transform .9s cubic-bezier(.22,1,.36,1);}
+.exp-img-wrap:hover img{transform:scale(1.05);}
+.exp-badge{position:absolute;bottom:28px;left:28px;background:#fff;border-radius:6px;padding:16px 20px;}
+.exp-badge-n{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);line-height:1;display:block;}
+.exp-badge-l{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);display:block;margin-top:2px;}
+.btn-link{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s;margin-top:20px;cursor:none;}
+.btn-link:hover{border-color:var(--gold);}
+@media(max-width:900px){.exp-grid{grid-template-columns:1fr;gap:36px;}}
 
-.primary:hover {
-    transform: translateY(-4px) scale(1.03);
-}
+/* AMENITIES */
+.amen-section{background:var(--dark);}
+.amen-section .s-title{color:#fff;}
+.amen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-top:56px;}
+.amen-card{background:#181817;padding:32px 24px;transition:background .3s;}
+.amen-card:hover{background:#1f1e1c;}
+.amen-icon{margin-bottom:18px;display:block;}
+.amen-name{font-size:.88rem;color:rgba(255,255,255,.82);font-weight:500;margin-bottom:6px;}
+.amen-desc{font-size:.75rem;color:rgba(255,255,255,.33);line-height:1.6;}
+@media(max-width:900px){.amen-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.amen-grid{grid-template-columns:1fr;}}
 
-/* SECTION */
-.section {
-    padding: 120px 10%;
-    display: flex;
-    gap: 60px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.section img {
-    width: 45%;
-    border-radius: 16px;
-    transition: 0.5s;
-}
-
-.section img:hover {
-    transform: scale(1.05);
-}
-
-.text {
-    width: 45%;
-}
-
-.text h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.6rem;
-}
-
-.text p {
-    color: #555;
-    line-height: 1.8;
-}
-
-.alt {
-    background: #f7f5f2;
-}
-
-/* GALLERY */
-.gallery-advanced {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    padding: 80px 10%;
-}
-
-.gallery-advanced img {
-    width: 100%;
-    border-radius: 15px;
-    opacity: 0;
-    transform: translateY(60px) scale(0.92);
-    transition: all 0.5s ease;
-    cursor: pointer;
-}
-
-.gallery-advanced img.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.gallery-advanced img:hover {
-    transform: scale(1.05);
-}
-
-/* MOBILE GALLERY */
-@media (max-width: 600px) {
-    .gallery-advanced {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding: 50px 20px;
-        scroll-snap-type: x mandatory;
-    }
-
-    .gallery-advanced img {
-        min-width: 85%;
-        scroll-snap-align: center;
-    }
-}
-
-/* MAP */
-iframe {
-    border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
-
-/* CONTACT */
-.contact {
-    text-align: center;
-    padding: 120px 20px;
-}
-
-/* FLOATING BUTTONS */
-.floating-buttons {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 9999;
-}
-
-.float-icon {
-    width: 55px;
-    height: 55px;
-}
-
-.float-icon img {
-    width: 100%;
-    height: 100%;
-}
-
-.whatsapp-icon {
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-    100% { transform: scale(1); }
-}
+/* GALLERY SLIDER */
+.gallery-section{padding:100px 0 120px;background:var(--sand);overflow:hidden;}
+.gallery-header{padding:0 10%;margin-bottom:52px;display:flex;justify-content:space-between;align-items:flex-end;}
+.gallery-track-wrap{overflow:hidden;position:relative;}
+.gallery-track{display:flex;gap:18px;padding:0 10%;will-change:transform;user-select:none;-webkit-user-select:none;touch-action:pan-y pinch-zoom;}
+.gallery-track.eased{transition:transform .72s cubic-bezier(.22,1,.36,1);}
+.g-slide{flex:0 0 auto;width:460px;height:580px;border-radius:6px;overflow:hidden;position:relative;cursor:none;}
+.g-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1);pointer-events:none;}
+.g-slide:hover img{transform:scale(1.06);}
+.g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 50%);opacity:0;transition:opacity .45s;display:flex;align-items:flex-end;padding:24px;}
+.g-slide:hover .g-overlay{opacity:1;}
+.g-label{color:#fff;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;transform:translateY(8px);opacity:0;transition:all .4s .05s;}
+.g-slide:hover .g-label{transform:none;opacity:1;}
+.gallery-controls{padding:0 10%;margin-top:40px;display:flex;align-items:center;gap:22px;}
+.gal-btn{width:52px;height:52px;border-radius:50%;border:1px solid rgba(0,0,0,.14);background:transparent;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s;}
+.gal-btn:hover{background:var(--dark);border-color:var(--dark);}
+.gal-btn:hover svg{stroke:#fff;}
+.gal-btn svg{stroke:var(--dark);transition:stroke .3s;}
+.gal-progress{flex:1;height:1px;background:rgba(0,0,0,.1);position:relative;overflow:hidden;border-radius:1px;}
+.gal-bar{position:absolute;left:0;top:0;height:100%;background:var(--gold);transition:width .6s cubic-bezier(.22,1,.36,1);}
+.gal-counter{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--text-light);}
+@media(max-width:768px){.g-slide{width:80vw;height:68vw;min-height:260px;}.gallery-header{flex-direction:column;align-items:flex-start;gap:16px;}.gallery-header p{text-align:left;}}
 
 /* LIGHTBOX */
-#lightbox {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:99998;display:none;align-items:center;justify-content:center;}
+#lightbox.open{display:flex;}
+#lb-img{max-width:88vw;max-height:88vh;object-fit:contain;border-radius:4px;animation:lbIn .4s cubic-bezier(.22,1,.36,1);transition:opacity .15s;cursor:none;}
+@keyframes lbIn{from{opacity:0;transform:scale(.93);}to{opacity:1;transform:none;}}
+#lb-close{position:fixed;top:26px;right:34px;color:rgba(255,255,255,.5);font-size:1.6rem;cursor:none;transition:color .2s;z-index:99999;line-height:1;background:none;border:none;}
+#lb-close:hover{color:#fff;}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:none;color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .3s;z-index:99999;}
+.lb-nav:hover{background:rgba(255,255,255,.18);}
+#lb-prev{left:20px;}#lb-next{right:20px;}
 
-#lightbox.show {
-    display:flex;
-}
+/* LOCATION */
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.loc-map{border-radius:6px;overflow:hidden;height:480px;box-shadow:0 20px 60px rgba(0,0,0,.1);}
+.loc-map iframe{width:100%;height:100%;border:none;display:block;}
+.loc-row{display:flex;align-items:center;gap:16px;padding:17px 0;border-bottom:1px solid rgba(0,0,0,.07);}
+.loc-row:last-child{border-bottom:none;}
+.loc-icon{width:34px;height:34px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.loc-name{flex:1;font-size:.87rem;font-weight:500;}
+.loc-dist{font-size:.73rem;color:var(--text-light);}
+.loc-bar-w{width:56px;height:2px;background:#E6E0D6;border-radius:2px;overflow:hidden;}
+.loc-bar{height:100%;background:var(--gold);border-radius:2px;}
+@media(max-width:900px){.loc-grid{grid-template-columns:1fr;}.loc-map{height:280px;}}
 
-#lightbox img {
-    max-width:90%;
-    max-height:90%;
-    border-radius:10px;
-}
+/* BOOK */
+.book-section{background:linear-gradient(135deg,var(--sea) 0%,#122836 100%);padding:100px 10%;}
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.book-section .s-label{color:rgba(201,169,110,.75);}
+.book-section .s-title{color:#fff;}
+.book-section .s-body{color:rgba(255,255,255,.5);max-width:400px;}
+.book-contact{margin-top:30px;display:flex;flex-direction:column;gap:14px;}
+.book-contact a{display:flex;align-items:center;gap:12px;text-decoration:none;color:rgba(255,255,255,.5);font-size:.84rem;transition:color .3s;cursor:none;}
+.book-contact a:hover{color:var(--gold-light);}
+.avail-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:36px;backdrop-filter:blur(10px);}
+.avail-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;font-weight:400;margin-bottom:4px;}
+.avail-card>p{font-size:.76rem;color:rgba(255,255,255,.35);margin-bottom:24px;line-height:1.6;}
+.avail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.af{display:flex;flex-direction:column;gap:7px;}
+.af label{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.38);}
+.af input,.af select{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:12px 14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:.87rem;outline:none;transition:border-color .3s;cursor:none;width:100%;}
+.af input:focus,.af select:focus{border-color:var(--gold);}
+.af select option{background:#1E3D4F;}
+.af input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.35;cursor:pointer;}
+.btn-check{width:100%;padding:15px;background:var(--gold);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.77rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;cursor:none;transition:all .4s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;}
+.btn-check:hover{background:var(--gold-dark);transform:translateY(-2px);}
+.avail-note{font-size:.66rem;color:rgba(255,255,255,.26);text-align:center;margin-top:14px;line-height:1.7;}
+.avail-note a{color:rgba(232,213,176,.6);text-decoration:none;}
+@media(max-width:900px){.book-grid{grid-template-columns:1fr;gap:48px;}}
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-    .section {
-        flex-direction: column;
-        text-align: center;
-    }
-    .section img, .text {
-        width: 100%;
-    }
-    .hero h1 {
-        font-size: 3rem;
-    }
-    .gallery-advanced {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+/* FOOTER */
+footer{background:var(--dark);padding:60px 10% 38px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff;margin-bottom:12px;}
+footer p,footer a{font-size:.78rem;line-height:2;color:rgba(255,255,255,.35);text-decoration:none;display:block;transition:color .3s;cursor:none;}
+footer a:hover{color:var(--gold);}
+footer h4{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:16px;}
+.footer-bottom{padding-top:22px;display:flex;justify-content:space-between;font-size:.7rem;color:rgba(255,255,255,.18);flex-wrap:wrap;gap:8px;}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:30px;}}
 
-/* MOBILE */
-@media (max-width: 600px) {
-    nav { display: none; }
-    .hero { height: 90vh; }
-    .hero h1 { font-size: 2.2rem; }
-    .btn { font-size: 14px; padding: 12px 20px; }
-    .section { padding: 60px 20px; }
-    .text h2 { font-size: 1.8rem; }
-}
-
+/* WHATSAPP */
+.wa{position:fixed;bottom:26px;right:26px;z-index:9997;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:none;animation:waPop .5s 2s both;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;}
+@keyframes waPop{from{opacity:0;transform:scale(.4);}to{opacity:1;transform:scale(1);}}
+.wa:hover{transform:scale(1.12);box-shadow:0 12px 40px rgba(37,211,102,.5);}
+.wa::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;animation:waRing 2.5s 3s infinite;}
+@keyframes waRing{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.85);opacity:0;}}
 </style>
 </head>
-
 <body>
 
-<nav>
-<a href="#home">Home</a>
-<a href="#experience">Experience</a>
-<a href="#amenities">Amenities</a>
-<a href="#location">Location</a>
-<a href="#contact">Book</a>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav id="nav">
+  <div class="nav-logo">Del Sole · Rab</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#experience">Stay</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#book">Book</a></li>
+  </ul>
 </nav>
 
 <section class="hero" id="home">
-<div>
-<h1>Del Sole Apartments</h1>
-<p>A peaceful retreat in Supetarska Draga where the sea and calm surroundings define your stay.</p>
-<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Check Availability</a>
-</div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><div class="hero-tag-line"></div><span>Supetarska Draga · Rab Island · Croatia</span></div>
+    <h1>Where the sun<br>finds <em>the sea</em></h1>
+    <p class="hero-sub">Intimate apartments on the Adriatic, steps from hidden coves and pine-scented shores.</p>
+    <div class="hero-ctas">
+      <a class="btn-gold" href="#book">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Check Availability
+      </a>
+      <a class="btn-ghost" href="#experience">Explore the stay</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
 </section>
+
+<div class="stat-strip">
+  <div class="stat"><div class="stat-num">9.4</div><div class="stat-label">Booking.com score</div></div>
+  <div class="stat"><div class="stat-num">50m</div><div class="stat-label">to the beach</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">sea view rooms</div></div>
+  <div class="stat"><div class="stat-num">Free</div><div class="stat-label">parking &amp; wifi</div></div>
+</div>
 
 <section class="section" id="experience">
-<div class="text">
-<h2>Moments by the sea</h2>
-<p>Wake up to sea views and enjoy peaceful surroundings just steps from the beach.</p>
-</div>
-<img src="balconyview.png">
+  <div class="exp-grid">
+    <div class="exp-img-wrap reveal">
+      <img src="balconyview.png" alt="Sea view from balcony">
+      <div class="exp-badge">
+        <span class="exp-badge-n">50m</span>
+        <span class="exp-badge-l">to the beach</span>
+      </div>
+    </div>
+    <div class="reveal rd2" style="display:flex;flex-direction:column;gap:18px;">
+      <div class="s-label">The Experience</div>
+      <h2 class="s-title">Mornings kissed<br>by <em>sea light</em></h2>
+      <p class="s-body">Step onto your private balcony and let the Adriatic breeze carry the day forward. Del Sole is a serene escape where emerald waters, pine trees, and the gentle rhythm of island life become your daily backdrop.</p>
+      <p class="s-body">Supetarska Draga is one of Rab's most treasured bays — quiet, authentic, and unhurried by mass tourism.</p>
+      <a class="btn-link" href="#book">Reserve your stay <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
 </section>
 
-<section class="section alt" id="amenities">
-<img src="bedroom.png">
-<div class="text">
-<h2>Comfort and simplicity</h2>
-<p>Fully equipped apartments with air conditioning, balcony and sea view.</p>
-</div>
+<section class="section amen-section" id="amenities">
+  <div class="reveal">
+    <div class="s-label" style="color:rgba(201,169,110,.65);">What's included</div>
+    <h2 class="s-title">Every comfort,<br><em>thoughtfully placed</em></h2>
+  </div>
+  <div class="amen-grid">
+    <div class="amen-card reveal"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg><div class="amen-name">Sea View Balcony</div><div class="amen-desc">Private terrace with direct Adriatic views</div></div>
+    <div class="amen-card reveal rd1"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg><div class="amen-name">Air Conditioning</div><div class="amen-desc">Climate control for warm summer evenings</div></div>
+    <div class="amen-card reveal rd2"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg><div class="amen-name">Free WiFi</div><div class="amen-desc">High-speed internet throughout</div></div>
+    <div class="amen-card reveal rd3"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="amen-name">Full Kitchen</div><div class="amen-desc">Fully equipped for self-catering stays</div></div>
+    <div class="amen-card reveal"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><div class="amen-name">Free Parking</div><div class="amen-desc">Private on-site, no extra charge</div></div>
+    <div class="amen-card reveal rd1"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg><div class="amen-name">Quiet Bay</div><div class="amen-desc">Away from crowds, close to nature</div></div>
+    <div class="amen-card reveal rd2"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01M7 20v-4M12 20V10M17 20V4M22 20v-8"/></svg><div class="amen-name">50m to Beach</div><div class="amen-desc">Crystal-clear Adriatic at your doorstep</div></div>
+    <div class="amen-card reveal rd3"><svg class="amen-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><div class="amen-name">Family Friendly</div><div class="amen-desc">Welcoming to all ages and groups</div></div>
+  </div>
 </section>
 
-<section class="gallery-advanced">
-<img src="balcony.png">
-<img src="parking2.png">
-<img src="parkingnight.png">
-<img src="kitchen.png">
-<img src="bedroom.png">
-<img src="balconyview.png">
-<img src="seaview.png">    
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header reveal">
+    <div>
+      <div class="s-label">The Spaces</div>
+      <h2 class="s-title">Light, views<br>&amp; <em>Adriatic warmth</em></h2>
+    </div>
+    <p style="font-size:.78rem;color:var(--text-light);max-width:190px;line-height:1.7;text-align:right;">Drag or swipe · click to enlarge</p>
+  </div>
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="gTrack">
+      <div class="g-slide" data-i="0"><img src="balconyview.png" alt="Sea view"><div class="g-overlay"><div class="g-label">Balcony view</div></div></div>
+      <div class="g-slide" data-i="1"><img src="balcony.png" alt="Balcony"><div class="g-overlay"><div class="g-label">Private balcony</div></div></div>
+      <div class="g-slide" data-i="2"><img src="bedroom.png" alt="Bedroom"><div class="g-overlay"><div class="g-label">Bedroom</div></div></div>
+      <div class="g-slide" data-i="3"><img src="kitchen.png" alt="Kitchen"><div class="g-overlay"><div class="g-label">Kitchen</div></div></div>
+      <div class="g-slide" data-i="4"><img src="parking2.png" alt="Parking"><div class="g-overlay"><div class="g-label">Free parking</div></div></div>
+      <div class="g-slide" data-i="5"><img src="parkingnight.png" alt="Evening"><div class="g-overlay"><div class="g-label">Evening</div></div></div>
+      <div class="g-slide" data-i="6"><img src="seaview.png" alt="Sea view"><div class="g-overlay"><div class="g-label">Sea view</div></div></div>
+    </div>
+  </div>
+  <div class="gallery-controls reveal">
+    <button class="gal-btn" id="gPrev"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="gal-btn" id="gNext"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+    <div class="gal-progress"><div class="gal-bar" id="gBar"></div></div>
+    <div class="gal-counter"><span id="gCur">1</span>&thinsp;/&thinsp;<span id="gTot">7</span></div>
+  </div>
 </section>
 
-<section class="section alt" id="location">
-<div class="text">
-<h2>Location</h2>
-<p>Located in beautiful Supetarska Draga on Rab Island, surrounded by calm sea, hidden bays and stunning island views.</p>
-</div>
-
-<iframe 
-src="https://www.google.com/maps?q=44.8032,14.7067&hl=en&z=14&output=embed"
-width="100%" height="400" style="border:0;" loading="lazy">
-</iframe>
+<section class="section" id="location">
+  <div class="loc-grid">
+    <div class="reveal">
+      <div class="s-label">Find Us</div>
+      <h2 class="s-title">Island of Rab,<br><em>Croatia</em></h2>
+      <p class="s-body" style="margin-bottom:32px;">Nestled in Supetarska Draga, one of Rab's most scenic and tranquil bays — surrounded by ancient pines, clear sea, and the warmth of Croatian island life.</p>
+      <div>
+        <div class="loc-row"><div class="loc-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8" stroke-linecap="round"><path d="M3 17h18M3 7l9 6 9-6"/><path d="M5 7V5a1 1 0 011-1h12a1 1 0 011 1v2"/></svg></div><span class="loc-name">Beach</span><span class="loc-dist">50 m</span><div class="loc-bar-w"><div class="loc-bar" style="width:96%"></div></div></div>
+        <div class="loc-row"><div class="loc-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8" stroke-linecap="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><span class="loc-name">Restaurant</span><span class="loc-dist">200 m</span><div class="loc-bar-w"><div class="loc-bar" style="width:88%"></div></div></div>
+        <div class="loc-row"><div class="loc-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div><span class="loc-name">Supermarket</span><span class="loc-dist">500 m</span><div class="loc-bar-w"><div class="loc-bar" style="width:70%"></div></div></div>
+        <div class="loc-row"><div class="loc-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><span class="loc-name">Rab Old Town</span><span class="loc-dist">8 km</span><div class="loc-bar-w"><div class="loc-bar" style="width:40%"></div></div></div>
+        <div class="loc-row"><div class="loc-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.8" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><span class="loc-name">Ferry Terminal</span><span class="loc-dist">12 km</span><div class="loc-bar-w"><div class="loc-bar" style="width:22%"></div></div></div>
+      </div>
+    </div>
+    <div class="loc-map reveal rd2">
+      <iframe src="https://www.google.com/maps?q=44.8032,14.7067&hl=en&z=14&output=embed" loading="lazy" allowfullscreen></iframe>
+    </div>
+  </div>
 </section>
 
-<section class="contact" id="contact">
-<h2>Book your stay</h2>
-<a class="btn primary" href="https://www.booking.com/hotel/hr/apartments-rakip.html">Book Now</a>
+<section class="book-section" id="book">
+  <div class="book-grid">
+    <div class="reveal">
+      <div class="s-label">Reservations</div>
+      <h2 class="s-title">Ready for your<br><em>Adriatic escape?</em></h2>
+      <p class="s-body">Select dates and check live availability on Booking.com — prices update in real time. Or reach us directly.</p>
+      <div class="book-contact">
+        <a href="tel:+385981676499"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 012.15 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.94.35 1.92.57 2.91.7A2 2 0 0122 16.92z"/></svg>+385 98 167 6499</a>
+        <a href="https://wa.me/385981676499" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="#C9A96E"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp us</a>
+        <a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>View on Booking.com</a>
+      </div>
+    </div>
+    <div class="avail-card reveal rd2">
+      <h3>Check Availability</h3>
+      <p>Your dates are pre-filled on Booking.com — live prices shown instantly</p>
+      <div class="avail-grid">
+        <div class="af"><label>Check-in</label><input type="date" id="ci"></div>
+        <div class="af"><label>Check-out</label><input type="date" id="co"></div>
+        <div class="af"><label>Adults</label><select id="ad"><option value="1">1 adult</option><option value="2" selected>2 adults</option><option value="3">3 adults</option><option value="4">4 adults</option></select></div>
+        <div class="af"><label>Children</label><select id="ch"><option value="0" selected>None</option><option value="1">1 child</option><option value="2">2 children</option></select></div>
+      </div>
+      <button class="btn-check" onclick="goBook()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        View Live Availability
+      </button>
+      <p class="avail-note">You'll be taken to <a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Booking.com</a> with your dates pre-filled.<br>Free cancellation available on most rates.</p>
+    </div>
+  </div>
 </section>
 
-<div class="floating-buttons">
-<a href="https://wa.me/385981676499?text=Hi%20I%20would%20like%20to%20book%20an%20apartment" target="_blank" class="float-icon whatsapp-icon">
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+<footer>
+  <div class="footer-grid">
+    <div><div class="footer-logo">Del Sole Apartments</div><p>A peaceful retreat on the island of Rab, where the Adriatic defines every moment.</p><p style="margin-top:6px;">Supetarska Draga · Rab Island · Croatia</p></div>
+    <div><h4>Navigate</h4><a href="#experience">The Experience</a><a href="#amenities">Amenities</a><a href="#gallery">Gallery</a><a href="#location">Location</a><a href="#book">Book Now</a></div>
+    <div><h4>Contact</h4><a href="tel:+385981676499">+385 98 167 6499</a><a href="https://wa.me/385981676499" target="_blank">WhatsApp</a><a href="https://www.booking.com/hotel/hr/apartments-rakip.html" target="_blank">Booking.com</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Del Sole Apartments · Rab Island</span><span>Supetarska Draga · Croatia</span></div>
+</footer>
+
+<a href="https://wa.me/385981676499?text=Hi%2C%20I'd%20like%20to%20enquire%20about%20booking" target="_blank" class="wa" title="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-</div>
 
-<!-- LIGHTBOX -->
 <div id="lightbox">
-<img id="lightbox-img">
+  <button id="lb-close" onclick="lbClose()">&#215;</button>
+  <button class="lb-nav" id="lb-prev" onclick="lbNav(-1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav" id="lb-next" onclick="lbNav(1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
 </div>
 
 <script>
-const galleryImages = document.querySelectorAll('.gallery-advanced img');
-
-/* SHOW ON LOAD */
-window.addEventListener('load', () => {
-  galleryImages.forEach((img, i) => {
-      setTimeout(() => img.classList.add('show'), i * 120);
-  });
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function raf(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf);})();
+document.querySelectorAll('a,button,.g-slide,.gal-btn,.exp-img-wrap').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));
 });
 
-/* SHOW ON SCROLL */
-window.addEventListener('scroll', () => {
-  galleryImages.forEach((img, i) => {
-    const top = img.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50){
-        setTimeout(() => img.classList.add('show'), i * 120);
-    }
-  });
+/* NAV */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>80),{passive:true});
+
+/* DATES */
+(function(){
+  const f=d=>d.toISOString().split('T')[0];
+  const ci=document.getElementById('ci'),co=document.getElementById('co');
+  const n=new Date();
+  ci.min=f(n);ci.value=f(new Date(n.getTime()+864e5));
+  co.min=f(new Date(n.getTime()+864e5));co.value=f(new Date(n.getTime()+2*864e5));
+  ci.addEventListener('change',()=>{const nx=new Date(new Date(ci.value).getTime()+864e5);co.min=f(nx);if(co.value<=ci.value)co.value=f(nx);});
+})();
+
+function goBook(){
+  const ci=document.getElementById('ci').value,co=document.getElementById('co').value;
+  const ad=document.getElementById('ad').value,ch=document.getElementById('ch').value;
+  const u=new URL('https://www.booking.com/hotel/hr/apartments-rakip.html');
+  if(ci){const d=new Date(ci);u.searchParams.set('checkin_year',d.getFullYear());u.searchParams.set('checkin_month',d.getMonth()+1);u.searchParams.set('checkin_monthday',d.getDate());}
+  if(co){const d=new Date(co);u.searchParams.set('checkout_year',d.getFullYear());u.searchParams.set('checkout_month',d.getMonth()+1);u.searchParams.set('checkout_monthday',d.getDate());}
+  u.searchParams.set('group_adults',ad);u.searchParams.set('group_children',ch);u.searchParams.set('no_rooms',1);
+  window.open(u.toString(),'_blank');
+}
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.08,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* GALLERY DRAG SLIDER */
+const track=document.getElementById('gTrack');
+const slides=[...document.querySelectorAll('.g-slide')];
+const total=slides.length;
+document.getElementById('gTot').textContent=total;
+const bar=document.getElementById('gBar'),curEl=document.getElementById('gCur');
+let idx=0,startX=0,startOff=0,dragging=false,wasDragged=false;
+
+function sw(){return slides[0].offsetWidth+18;}
+function maxOff(){
+  const pw=track.parentElement.offsetWidth;
+  const pad=pw*0.1;
+  return Math.max(0,slides.reduce((s,sl)=>s+sl.offsetWidth+18,0)-18-pw+pad);
+}
+function goTo(i,animate=true){
+  idx=Math.max(0,Math.min(i,total-1));
+  if(animate)track.classList.add('eased');else track.classList.remove('eased');
+  const off=Math.min(idx*sw(),maxOff());
+  track.style.transform=`translateX(-${off}px)`;
+  bar.style.width=(total<2?100:(idx/(total-1))*100)+'%';
+  curEl.textContent=idx+1;
+}
+
+document.getElementById('gPrev').onclick=()=>goTo(idx-1);
+document.getElementById('gNext').onclick=()=>goTo(idx+1);
+
+function dStart(x){const m=track.style.transform.match(/translateX\(-([\d.]+)/);startOff=m?+m[1]:0;startX=x;dragging=true;wasDragged=false;track.classList.remove('eased');document.body.classList.add('c-drag');}
+function dMove(x){if(!dragging)return;const dx=x-startX;if(Math.abs(dx)>5)wasDragged=true;const off=Math.max(0,Math.min(startOff-dx,maxOff()));track.style.transform=`translateX(-${off}px)`;}
+function dEnd(x){if(!dragging)return;dragging=false;document.body.classList.remove('c-drag');const dx=x-startX;if(Math.abs(dx)<5)return;goTo(Math.round(idx-dx/sw()));}
+
+track.addEventListener('mousedown',e=>{e.preventDefault();dStart(e.clientX);});
+window.addEventListener('mousemove',e=>{dMove(e.clientX);},{passive:true});
+window.addEventListener('mouseup',e=>{dEnd(e.clientX);});
+track.addEventListener('touchstart',e=>{dStart(e.touches[0].clientX);},{passive:true});
+track.addEventListener('touchmove',e=>{dMove(e.touches[0].clientX);},{passive:true});
+track.addEventListener('touchend',e=>{dEnd(e.changedTouches[0].clientX);});
+
+/* keyboard */
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft')goTo(idx-1);
+  if(e.key==='ArrowRight')goTo(idx+1);
+  if(e.key==='Escape')lbClose();
 });
+goTo(0,false);
 
 /* LIGHTBOX */
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lb-img');
+const srcs=slides.map(s=>s.querySelector('img').src);
+let lbIdx=0;
+lbImg.style.transition='opacity .15s';
 
-galleryImages.forEach(img => {
-    img.onclick = () => {
-        lightbox.classList.add("show");
-        lightboxImg.src = img.src;
-    };
-});
-
-lightbox.onclick = () => {
-    lightbox.classList.remove("show");
-};
+slides.forEach((sl,i)=>sl.addEventListener('click',()=>{
+  if(wasDragged){wasDragged=false;return;}
+  lbIdx=i;lbImg.src=srcs[i];lb.classList.add('open');
+}));
+lb.addEventListener('click',e=>{if(e.target===lb)lbClose();});
+function lbClose(){lb.classList.remove('open');}
+function lbNav(d){lbIdx=(lbIdx+d+srcs.length)%srcs.length;lbImg.style.opacity='0';setTimeout(()=>{lbImg.src=srcs[lbIdx];lbImg.style.opacity='1';},150);}
 </script>
-
 </body>
 </html>
